@@ -1,24 +1,16 @@
 <template>
-  <div>
-    <b-navbar toggleable="sm" type="dark" fixed="top">
-      <b-navbar-brand href="/">Logo</b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <div class="nav-button">
-            <nuxt-link to="/">
-              回首頁
-            </nuxt-link>
-          </div>
-          <div class="nav-button">觀光行程</div>
-          <div class="nav-button">抽獎辦法</div>
-          <div class="nav-button">分享</div>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+  <div id="headbar">
+    <div id="headbar-logo">
+      <div id="logo">
+        LOGO 製作中
+      </div>
+    </div>
+    <div id="headbar-button-contain">
+      <div class="headbar-button">回到首頁</div>
+      <div class="headbar-button">觀光行程</div>
+      <div class="headbar-button">抽獎辦法</div>
+      <div class="headbar-button">分享遊戲</div>
+    </div>
   </div>
 </template>
 
@@ -29,29 +21,36 @@ export default {
 </script>
 
 <style lang="scss">
-  nav {
-    background: #009999;
-  }
-
-  .nav-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border-radius: 15px;
-    width: 100px;
-    height: 40px;
-    margin: 5px 7px;
-    box-shadow: 2px 2px 0px 1px rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-
-    a {
-      color: #000;
-      text-decoration: none;
+  #headbar {
+    #headbar-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #d9d9d9;
+      padding: 50px 0 20px 0;
     }
-  }
 
-  .nav-button:hover {
-    transform: translate(1px, 1px);
+    #logo {
+      width: 300px;
+      background: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    #headbar-button-contain {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .headbar-button {
+        width: 150px;
+        padding: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
   }
 </style>

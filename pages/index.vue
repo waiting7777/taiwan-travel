@@ -1,24 +1,17 @@
 <template>
   <div class="main">
     <Headbar />
-    <div id="cat">
-      <img src="/images/cat.png" />
-    </div>
-    <div id="taipei">背景圖</div>
-    <div id="button">
-      <nuxt-link to="/taiwan">
-        <i class="fas fa-arrow-down"></i>
-      </nuxt-link>
-    </div>
+    <Game />
   </div>
 </template>
 
 <script>
 import Headbar from '~/components/Headbar.vue'
+import Game from '~/components/Game.vue'
 
 export default {
   components: {
-    Headbar
+    Headbar, Game
   }
 }
 </script>
