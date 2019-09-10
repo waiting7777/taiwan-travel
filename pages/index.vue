@@ -2,16 +2,18 @@
   <div class="main">
     <Headbar />
     <Game />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Headbar from '~/components/Headbar.vue'
 import Game from '~/components/Game.vue'
+import Footer from '~/components/Footer.vue'
 
 export default {
   components: {
-    Headbar, Game
+    Headbar, Game, Footer
   }
 }
 </script>

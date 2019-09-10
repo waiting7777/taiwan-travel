@@ -1,7 +1,5 @@
 <template>
-<div>
   <div id="game"></div>
-  </div>
 </template>
 
 <script>
@@ -26,8 +24,14 @@ export default {
 
 <style lang="scss">
   #game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(149, 188, 194, 1);
+
     canvas {
       width: 100%;
+      max-width: 1280px;
     }
   }
 </style>
