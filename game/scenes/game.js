@@ -10,6 +10,7 @@ export default class GameScene extends Phaser.Scene {
 
   preload() {
     // load assets
+    this.load.image('bg', '/images/bg.png');
     this.load.image('cat', '/images/cat.png');
     this.load.image('arrow-down', '/images/arrow-down.png')
     this.load.image('taiwan', '/images/taiwan.png')
@@ -37,9 +38,12 @@ export default class GameScene extends Phaser.Scene {
     // event listener for the background
     this.arrowButton.on('pointerdown', this.nextPage, this);
 
+    // add bg
+    this.bg = this.add.image(0, 0, 'bg').setOrigin(0).setDepth(-1).setAlpha(0)
+
     // add taiwan
-    this.taiwan = this.add.image(600, 350, 'taiwan').setScale(0.5).setAlpha(0)
-    this.taipei = this.add.image(680, 100, 'taipei').setScale(0.5).setAlpha(0)
+    this.taiwan = this.add.image(600, 350, 'taiwan').setAlpha(0)
+    this.taipei = this.add.image(700, 70, 'taipei').setAlpha(0)
     this.miaoli = this.add.image(530, 120, 'miaoli').setScale(0.5).setAlpha(0)
     this.taichung = this.add.image(450, 220, 'taichung').setScale(0.3).setAlpha(0)
     this.tainan = this.add.image(370, 380, 'tainan').setScale(0.4).setAlpha(0)
@@ -67,6 +71,7 @@ export default class GameScene extends Phaser.Scene {
       this.ilan.setAlpha(1)
       this.hualian.setAlpha(1)
       this.taitung.setAlpha(1)
+      this.bg.setAlpha(1)
       this.tweens.add({
         targets: this.ohBear,
         duration: 800,
@@ -80,7 +85,6 @@ export default class GameScene extends Phaser.Scene {
         scaleY: 0.4,
         pause: false,
       })
-      camera.setBackgroundColor('rgba(149, 188, 194)')
       camera.fadeIn(800, 149, 188, 194)
     }, this)
   }

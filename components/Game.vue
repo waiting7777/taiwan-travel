@@ -27,7 +27,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(149, 188, 194, 1);
+    background-image: url('/images/bg.png');
 
     canvas {
       width: 100%;
