@@ -5,5 +5,8 @@ export default {
   parent: 'game',
   title: 'Virtual Pet',
   pixelArt: false,
-  backgroundColor: 'ffffff'
+  backgroundColor: 'ffffff',
+  dom: {
+    createContainer: true
+  },
 }
