@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import _ from 'lodash'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -46,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('ilan', '/images/ilan.png')
     this.load.image('taitung', '/images/taitung.png')
     this.load.image('hualien', '/images/hualien.png')
+    this.load.image('point', '/images/point.png')
 
     this.load.spritesheet('score', '/images/score.png', { frameWidth: 322, frameHeight: 433 });
   }
@@ -76,34 +78,86 @@ export default class GameScene extends Phaser.Scene {
 
     // create first group
     this.mainGroup = this.add.group()
+    this.pointGroup = this.add.group()
 
     // add taiwan
     this.taiwan = this.add.image(600, 350, 'taiwan').setName('taiwan')
     this.taipei = this.add.image(682, 85, 'taipei').setName('taipei')
+    this.taipeiPoint = this.add.image(710, 75, 'point').setName('taipei')
     this.taoyuan = this.add.image(545, 90, 'taoyuan').setName('taoyuan')
-    this.miaoli = this.add.image(620, 200, 'miaoli').setName('miaoli')
+    this.taoyuanPoint = this.add.image(620, 92, 'point').setName('taoyuan')
+    this.miaoli = this.add.image(650, 200, 'miaoli').setName('miaoli')
+    this.miaoliPoint = this.add.image(590, 165, 'point').setName('miaoli')
     this.taichung = this.add.image(495, 200, 'taichung').setName('taichung')
-    this.nantou = this.add.image(620, 300, 'nantou').setName('nantou')
+    this.taichungPoint = this.add.image(545, 205, 'point').setName('taichung')
+    this.nantou = this.add.image(600, 290, 'nantou').setName('nantou')
+    this.nantouPoint = this.add.image(590, 245, 'point').setName('nantou')
     this.tainan = this.add.image(390, 370, 'tainan').setName('tainan')
+    this.tainanPoint = this.add.image(460, 405, 'point').setName('tainan')
     this.kaohsiung = this.add.image(540, 430, 'kaohsiung').setName('kaohsiung')
+    this.kaohsiungPoint = this.add.image(455, 465, 'point').setName('kaohsiung')
     this.pingtung = this.add.image(455, 560, 'pingtung').setName('pingtung')
+    this.pingtungPoint = this.add.image(525, 540, 'point').setName('pingtung')
     this.ilan = this.add.image(855, 155, 'ilan').setName('ilan')
-    this.hualien = this.add.image(750, 300, 'hualien').setName('hualien')
+    this.ilanPoint = this.add.image(775, 115, 'point').setName('ilan')
+    this.hualien = this.add.image(750, 290, 'hualien').setName('hualien')
+    this.hualienPoint = this.add.image(715, 235, 'point').setName('hualien')
     this.taitung = this.add.image(710, 490, 'taitung').setName('taitung')
+    this.taitungPoint = this.add.image(625, 465, 'point').setName('taitung')
 
     this.mainGroup.addMultiple([this.taiwan, this.taipei, this.taoyuan, this.miaoli, this.taichung, this.nantou,
                                 this.tainan, this.kaohsiung, this.pingtung, this.ilan, this.hualien, this.taitung])
+
+    this.pointGroup.addMultiple([this.taipeiPoint, this.taoyuanPoint, this.miaoliPoint, this.taichungPoint,
+                                this.nantouPoint, this.tainanPoint, this.kaohsiungPoint, this.pingtungPoint,
+                                this.ilanPoint, this.hualienPoint, this.taitungPoint])
+
+    for (let i in this.pointGroup.children.entries) {
+      this.pointGroup.children.entries[i].setInteractive({
+        useHandCursor: true
+      })
+      let that = this
+      this.pointGroup.children.entries[i].on('pointerover', function(pointer) {
+        if (!that.modalLock) {
+          this.setScale(1.2)
+          let name = this.name
+          let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
+          target.setScale(1.2)
+        }       
+      })
+      this.pointGroup.children.entries[i].on('pointerout', function(pointer) {
+        this.setScale(1)
+        let name = this.name
+        let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
+        target.setScale(1)
+      })
+      this.pointGroup.children.entries[i].on('pointerdown', (pointer) => {
+        if (!this.modalLock) {
+          this.modalLock = true       
+          this.elementTween.play()
+        }
+      })
+    }
 
     for (let i in this.mainGroup.children.entries) {
       if (this.mainGroup.children.entries[i].name !== 'taiwan') {
         this.mainGroup.children.entries[i].setInteractive({
           useHandCursor: true
         })
-        this.mainGroup.children.entries[i].on('pointerover', function(pointer) {          
-          this.setScale(1.1)
+        let that = this
+        this.mainGroup.children.entries[i].on('pointerover', function(pointer) {
+          if (!that.modalLock) {
+            this.setScale(1.2)
+            let name = this.name
+            let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
+            target.setScale(1.2)
+          }         
         })
         this.mainGroup.children.entries[i].on('pointerout', function(pointer) {
           this.setScale(1)
+          let name = this.name
+          let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
+          target.setScale(1)
         })
         this.mainGroup.children.entries[i].on('pointerdown', (pointer) => {
           if (!this.modalLock) {
@@ -129,6 +183,7 @@ export default class GameScene extends Phaser.Scene {
     this.mainGroup.add(this.score)
 
     this.mainGroup.toggleVisible()
+    this.pointGroup.toggleVisible()
 
     var div = document.createElement('div');
     div.id = 'modal'
@@ -168,6 +223,7 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.once('camerafadeoutcomplete', function(camera) {
       this.firstGroup.toggleVisible()
       this.mainGroup.toggleVisible()
+      this.pointGroup.toggleVisible()
       this.bg.setAlpha(1)
       this.tweens.add({
         targets: this.ohBear,
