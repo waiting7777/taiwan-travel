@@ -1,16 +1,6 @@
 <template>
   <section>
     <div id="game"></div>
-    <!-- <div id="modal">
-      <div id="modal-head">台北 101</div>
-      <div id="modal-image">
-        <img src="/images/taipei.jpg" />
-      </div>
-      <div id="modal-text">
-        TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。
-      </div>
-      <div id="modal-button">繼續闖關</div>
-    </div> -->
   </section>
 </template>
 
@@ -40,6 +30,8 @@ export default {
     justify-content: center;
     align-items: center;
     background-image: url('/images/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 
     canvas {
       width: 100%;

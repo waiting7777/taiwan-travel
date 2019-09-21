@@ -25,14 +25,46 @@ export default class GameScene extends Phaser.Scene {
       miaoli: {
         title: '苗栗三義木雕',
         text: '「桐花」、「木雕」、「溫泉」、「水果」、「陶瓷」及「客家菜」是苗栗觀光的6大特色，苗栗非常適合規畫2~3天的小旅行。三義木雕博物館中的大型原住民木雕享譽海內外。每年4、5月油桐花海盛開，雪白的桐花開滿山頭，吸引大批賞花客。'
+      },
+      taichung: {
+        title: '台中大甲媽祖',
+        text: '大甲鎮瀾宮媽祖繞境進香相傳已有數百年的歷史，相傳鎮瀾宮是清雍正8年（西元1730年）自湄洲天后祖廟恭請媽祖神像來台。每年農曆3月初「遶境進香」場面浩大，許多民眾跟隨遶境隊伍走完全程，各地廟宇均有迎媽祖的慶祝活動。'
+      },
+      nantou: {
+        title: '南投日月潭',
+        text: '日月潭面積827公頃，湖面周圍約33公里，北半部形如日輪，南半部形如月鉤，故而得名。在日月潭你可以搭船遊湖，也能騎單車環湖。每年「泳渡日月潭」與「環湖馬拉松賽」也讓日月潭除了美景，更多了活力。'
+      },
+      tainan: {
+        title: '台南赤崁樓',
+        text: '台南市是全台歷史最悠久的城市。鄭成功驅逐荷蘭人後，在臺南開府設治。至1683年，清國平臺，在臺南設臺灣府，為全臺首府。重要古蹟有赤崁樓、安平古堡、億載金城等古蹟。但來到台南除了歷史之旅，美食更是少不了的行程，建議您帶著足夠的肚量才能多裝幾份回味無窮的台灣小吃。'
+      },
+      kaohsiung: {
+        title: '高雄佛光山',
+        text: '高雄是充滿活力陽光的海港城市，除了愛河、壽山、西子灣、蓮池潭、旗津、左營舊城等知名景點外，位於大樹鄉的佛光山更是不可錯過的景點。最具特色的大佛城是主要地標。每年農曆春節到元宵期間，佛光山的花燈活動都吸引大批民眾。'
+      },
+      pingtung: {
+        title: '屏東東港',
+        text: '東隆宮是東港重要的象徵，當地人稱它「王爺廟」，主祀溫府千歲，是每三年舉辦一次的「迎王平安祭」主廟。平安祭原始用意為送瘟神出海，約在農曆9月舉行，除廟會活動外，最後一天的燒王船儀式更是整個祭典的高潮。'
+      },
+      taitung: {
+        title: '台東鹿野高台',
+        text: '鹿野高台擁有絕佳視野，能一覽整個高台地區與卑南溪谷底的田野景色，也是台灣東部優良的天然空域活動場地。每年6月至8月時都會有「國際熱氣球嘉年華」，正是體驗熱氣球的大好時機。除了熱氣球繫留體驗，還有熱氣球自由飛行表演、絢麗燦爛的光雕音樂會等活動。'
+      },
+      hualien: {
+        title: '花蓮太魯閣',
+        text: '太魯閣國家公園以雄偉壯麗、幾近垂直的大理岩峽谷景觀聞名。沿著立霧溪的峽谷風景線而行，觸目所及皆是壁立千仞的峭壁、斷崖、峽谷、連綿曲折的山洞隧道、大理岩層和溪流等風光。燕子口和九曲洞，是太魯閣峽谷最讓人心動的自然奇觀，也是峽谷最窄的兩段，臨溪側闢有人行步道供遊客漫步欣賞。'
+      },
+      ilan: {
+        title: '宜蘭頭城龜山島',
+        text: '龜山島位在宜蘭縣頭城鎮海岸以東約10公里處，孤懸於海中之火山島嶼，也是一座活火山，因其型似浮龜而得名。龜山島最有趣的活動就屬每年3~10月賞鯨行程。在這裡最常看到的就是飛旋海豚，這類海豚非常活潑，常逗得遊客驚呼連連。'
       }
     }
   }
 
   preload() {
     // load assets
+    this.load.image('bg-0', '/images/bg-0.png')
     this.load.image('bg', '/images/bg.png');
-    this.load.image('cat', '/images/cat.png');
     this.load.image('arrow-down', '/images/arrow-down.png')
     this.load.image('taiwan', '/images/taiwan.png')
     this.load.image('oh-bear', '/images/oh-bear.png')
@@ -50,14 +82,41 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('point', '/images/point.png')
 
     this.load.spritesheet('score', '/images/score.png', { frameWidth: 322, frameHeight: 433 });
+    this.load.spritesheet('cat', '/images/cat.png', { frameWidth: 579, frameHeight: 433 });
+    this.load.spritesheet('cat2', '/images/cat2.png', { frameWidth: 320, frameHeight: 300 })
   }
   
   create() {
+    let scaleX = this.cameras.main.width / 1280
+    let scaleY = this.cameras.main.height / 675
+    let scale = Math.max(scaleX, scaleY)
+
     // create first group
     this.firstGroup = this.add.group()
 
+    // add bg 0
+    this.bg0 = this.add.image(0, 0, 'bg-0').setOrigin(0).setDepth(-1)
+    this.bg0.setScale(scale).setScrollFactor(0)
+
     // add cat
-    this.cat = this.add.image(800, 300, 'cat').setScale(0.7).setAlpha(1)
+    let catAnim = this.anims.create({
+      key: 'catWalk',
+      frames: this.anims.generateFrameNumbers('cat'),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.cat = this.add.sprite(720, 410, 'cat').setScale(0.9)
+    this.cat.anims.play('catWalk')
+
+    // add cat2
+    let catAnim2 = this.anims.create({
+      key: 'catWalk2',
+      frames: this.anims.generateFrameNumbers('cat2'),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.cat2 = this.add.sprite(1110, 420, 'cat2').setScale(0.9)
+    this.cat2.anims.play('catWalk2')
 
     // add welcome text
     this.welcome1 = this.add.text(350, 200, 'Hi~歡迎來到', this._fontStyle)
@@ -68,42 +127,43 @@ export default class GameScene extends Phaser.Scene {
     this.firstGroup.add(this.welcome3);
 
     // add arrow down button
-    this.arrowButton = this.add.image(600, 575, 'arrow-down').setInteractive({ useHandCursor: true  })
+    this.arrowButton = this.add.image(650, 625, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
     this.firstGroup.add(this.arrowButton);
     // event listener for the background
     this.arrowButton.on('pointerdown', this.nextPage, this);
 
     // add bg
     this.bg = this.add.image(0, 0, 'bg').setOrigin(0).setDepth(-1).setAlpha(0)
+    this.bg.setScale(scale).setScrollFactor(0)
 
     // create first group
     this.mainGroup = this.add.group()
     this.pointGroup = this.add.group()
 
     // add taiwan
-    this.taiwan = this.add.image(600, 350, 'taiwan').setName('taiwan')
-    this.taipei = this.add.image(682, 85, 'taipei').setName('taipei')
-    this.taipeiPoint = this.add.image(710, 75, 'point').setName('taipei')
-    this.taoyuan = this.add.image(545, 90, 'taoyuan').setName('taoyuan')
-    this.taoyuanPoint = this.add.image(620, 92, 'point').setName('taoyuan')
-    this.miaoli = this.add.image(650, 200, 'miaoli').setName('miaoli')
-    this.miaoliPoint = this.add.image(590, 165, 'point').setName('miaoli')
-    this.taichung = this.add.image(495, 200, 'taichung').setName('taichung')
-    this.taichungPoint = this.add.image(545, 205, 'point').setName('taichung')
-    this.nantou = this.add.image(600, 290, 'nantou').setName('nantou')
-    this.nantouPoint = this.add.image(590, 245, 'point').setName('nantou')
-    this.tainan = this.add.image(390, 370, 'tainan').setName('tainan')
-    this.tainanPoint = this.add.image(460, 405, 'point').setName('tainan')
-    this.kaohsiung = this.add.image(540, 430, 'kaohsiung').setName('kaohsiung')
-    this.kaohsiungPoint = this.add.image(455, 465, 'point').setName('kaohsiung')
-    this.pingtung = this.add.image(455, 560, 'pingtung').setName('pingtung')
-    this.pingtungPoint = this.add.image(525, 540, 'point').setName('pingtung')
-    this.ilan = this.add.image(855, 155, 'ilan').setName('ilan')
-    this.ilanPoint = this.add.image(775, 115, 'point').setName('ilan')
-    this.hualien = this.add.image(750, 290, 'hualien').setName('hualien')
-    this.hualienPoint = this.add.image(715, 235, 'point').setName('hualien')
-    this.taitung = this.add.image(710, 490, 'taitung').setName('taitung')
-    this.taitungPoint = this.add.image(625, 465, 'point').setName('taitung')
+    this.taiwan = this.add.image(650, 350, 'taiwan').setName('taiwan')
+    this.taipei = this.add.image(732, 85, 'taipei').setName('taipei')
+    this.taipeiPoint = this.add.image(760, 75, 'point').setName('taipei')
+    this.taoyuan = this.add.image(595, 90, 'taoyuan').setName('taoyuan')
+    this.taoyuanPoint = this.add.image(670, 92, 'point').setName('taoyuan')
+    this.miaoli = this.add.image(700, 200, 'miaoli').setName('miaoli')
+    this.miaoliPoint = this.add.image(640, 165, 'point').setName('miaoli')
+    this.taichung = this.add.image(545, 200, 'taichung').setName('taichung')
+    this.taichungPoint = this.add.image(595, 205, 'point').setName('taichung')
+    this.nantou = this.add.image(650, 290, 'nantou').setName('nantou')
+    this.nantouPoint = this.add.image(640, 245, 'point').setName('nantou')
+    this.tainan = this.add.image(440, 370, 'tainan').setName('tainan')
+    this.tainanPoint = this.add.image(510, 405, 'point').setName('tainan')
+    this.kaohsiung = this.add.image(590, 430, 'kaohsiung').setName('kaohsiung')
+    this.kaohsiungPoint = this.add.image(505, 465, 'point').setName('kaohsiung')
+    this.pingtung = this.add.image(505, 560, 'pingtung').setName('pingtung')
+    this.pingtungPoint = this.add.image(575, 540, 'point').setName('pingtung')
+    this.ilan = this.add.image(905, 155, 'ilan').setName('ilan')
+    this.ilanPoint = this.add.image(825, 115, 'point').setName('ilan')
+    this.hualien = this.add.image(800, 290, 'hualien').setName('hualien')
+    this.hualienPoint = this.add.image(765, 235, 'point').setName('hualien')
+    this.taitung = this.add.image(760, 490, 'taitung').setName('taitung')
+    this.taitungPoint = this.add.image(675, 465, 'point').setName('taitung')
 
     this.mainGroup.addMultiple([this.taiwan, this.taipei, this.taoyuan, this.miaoli, this.taichung, this.nantou,
                                 this.tainan, this.kaohsiung, this.pingtung, this.ilan, this.hualien, this.taitung])
@@ -131,10 +191,11 @@ export default class GameScene extends Phaser.Scene {
         let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
         target.setScale(1)
       })
-      this.pointGroup.children.entries[i].on('pointerdown', (pointer) => {
-        if (!this.modalLock) {
-          this.modalLock = true       
-          this.elementTween.play()
+      this.pointGroup.children.entries[i].on('pointerdown', function(pointer) {
+        if (!that.modalLock) {
+          that.modalLock = true       
+          that.elementTween.play()
+          that.changeModalContent(this.name)
         }
       })
     }
@@ -159,26 +220,27 @@ export default class GameScene extends Phaser.Scene {
           let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
           target.setScale(1)
         })
-        this.mainGroup.children.entries[i].on('pointerdown', (pointer) => {
-          if (!this.modalLock) {
-            this.modalLock = true       
-            this.elementTween.play()
+        this.mainGroup.children.entries[i].on('pointerdown', function(pointer) {
+          if (!that.modalLock) {
+            that.modalLock = true       
+            that.elementTween.play()
+            that.changeModalContent(this.name)
           }
         })
       }
     }
 
     // add oh bear
-    this.ohBear = this.add.image(-200, 400, 'oh-bear').setScale(1).setAngle(-45)
+    this.ohBear = this.add.image(-200, 450, 'oh-bear').setAngle(-45)
 
     // add score
     let scoreAnim = this.anims.create({
       key: 'walk',
       frames: this.anims.generateFrameNumbers('score'),
-      frameRate: 6,
+      frameRate: 3,
       repeat: -1
     });
-    this.score = this.add.sprite(1000, 460, 'score').setScale(1)
+    this.score = this.add.sprite(1100, 460, 'score')
     this.score.anims.play('walk')
     this.mainGroup.add(this.score)
 
@@ -204,7 +266,7 @@ export default class GameScene extends Phaser.Scene {
     div.appendChild(this.modalText)
     div.appendChild(this.modalButton)
 
-    this.element = this.add.dom(350, 50, div).setOrigin(0).setScale(0, 1)
+    this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
     this.element.setAlpha(0)
 
     this.elementTween = this.tweens.add({
@@ -240,13 +302,25 @@ export default class GameScene extends Phaser.Scene {
 
   }
 
+  changeModalContent(name) {
+    this.modalHead.innerText = this.modalContent[name].title
+    this.modalImage.src = `/images/${name}.jpg`
+    this.modalText.innerText = this.modalContent[name].text
+  }
+
   nextPage() {
-    console.log(789)
     this.cameras.main.fadeOut(800, 149, 188, 194)
     this.tweens.add({
       targets: this.cat,
       duration: 800,
-      y: -100,
+      x: -100,
+      alpha: 0,
+      pause: false,
+    })
+    this.tweens.add({
+      targets: this.cat2,
+      duration: 800,
+      x: 290,
       alpha: 0,
       pause: false,
     })

@@ -2,12 +2,22 @@
   <div id="headbar">
     <div id="headbar-logo">
       <div id="logo">
-        LOGO 製作中
+        <a href="/">
+          <img src="/images/logo.png" />
+        </a>
       </div>
     </div>
     <div id="headbar-button-contain">
-      <div class="headbar-button">回到首頁</div>
-      <div class="headbar-button">觀光行程</div>
+      <div class="headbar-button">
+        <nuxt-link to="/">
+          回到首頁
+        </nuxt-link>
+      </div>
+      <div class="headbar-button">
+        <nuxt-link to="/schedule">
+          觀光行程
+        </nuxt-link>
+      </div>
       <div class="headbar-button">抽獎辦法</div>
       <div class="headbar-button">分享遊戲</div>
     </div>
@@ -27,16 +37,8 @@ export default {
       justify-content: center;
       align-items: center;
       border-bottom: 1px solid #d9d9d9;
-      padding: 50px 0 20px 0;
-    }
-
-    #logo {
-      width: 300px;
-      background: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      padding: 20px 0 20px 0;
+      border-top: 5px solid #f6b26b;
     }
 
     #headbar-button-contain {
@@ -50,6 +52,11 @@ export default {
         font-size: 16px;
         font-weight: bold;
         cursor: pointer;
+
+        a {
+          color: #000;
+          text-decoration: none;
+        }
       }
     }
   }
