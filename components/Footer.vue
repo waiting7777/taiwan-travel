@@ -1,9 +1,7 @@
 <template>
   <div id="footer">
     <img id="wj" src="/images/wj.png" />
-    <!-- <img id="ig" src="/images/ig.jpg" />
-    <img id="fb" src="/images/fb.jpg" />
-    <img id="wechat" src="/images/wechat.jpg" /> -->
+    <img id="t" src="/images/t.png" />
   </div>
 </template>
 
@@ -20,6 +18,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 20px;
 
     #wj {
       width: 150px;

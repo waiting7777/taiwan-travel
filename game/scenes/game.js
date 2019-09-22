@@ -12,53 +12,72 @@ export default class GameScene extends Phaser.Scene {
       font: 'bold 24px Microsoft JhengHei',
       lineSpacing: 8
     }
+    this.rewardCounter = 0;
+    this.rewardPosition = {
+      x: 140,
+      y: 32
+    }
+    this.scoreTable = [13, 14, 16, 18, 19, 20]
+    this.scoreNumber = 0;
+    this.currentModal = ''
     this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分賽'
     this.welcomeText2 = '只要完成11個關卡 尋寶就能參加「美國 -台北來回機票」抽獎！ 點下方按鈕Let\'s go!'
     this.modalLock = false;
     this.modalContent = {
       taipei: {
         title: '台北 101',
-        text: 'TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。'
+        text: 'TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。',
+        click: false
       },
       taoyuan: {
         title: '桃園大溪老街',
-        text: '大溪老街是台灣重要的歷史街區，不僅規模大，建築外觀與牌樓立面也保留得相當完整，主要範圍為和平路、中山路、中央路三條歷史街區。平常住家主要以紅磚牌樓立面搭配紅磚屋，商家則以石材精雕歐洲風格的拱門樑柱和繁複華麗的浮雕圖案，呈現出以巴洛克風情為主的立面牌樓。'
+        text: '大溪老街是台灣重要的歷史街區，不僅規模大，建築外觀與牌樓立面也保留得相當完整，主要範圍為和平路、中山路、中央路三條歷史街區。平常住家主要以紅磚牌樓立面搭配紅磚屋，商家則以石材精雕歐洲風格的拱門樑柱和繁複華麗的浮雕圖案，呈現出以巴洛克風情為主的立面牌樓。',
+        click: false
       },
       miaoli: {
         title: '苗栗三義木雕',
-        text: '「桐花」、「木雕」、「溫泉」、「水果」、「陶瓷」及「客家菜」是苗栗觀光的6大特色，苗栗非常適合規畫2~3天的小旅行。三義木雕博物館中的大型原住民木雕享譽海內外。每年4、5月油桐花海盛開，雪白的桐花開滿山頭，吸引大批賞花客。'
+        text: '「桐花」、「木雕」、「溫泉」、「水果」、「陶瓷」及「客家菜」是苗栗觀光的6大特色，苗栗非常適合規畫2~3天的小旅行。三義木雕博物館中的大型原住民木雕享譽海內外。每年4、5月油桐花海盛開，雪白的桐花開滿山頭，吸引大批賞花客。',
+        click: false
       },
       taichung: {
-        title: '台中大甲媽祖',
-        text: '大甲鎮瀾宮媽祖繞境進香相傳已有數百年的歷史，相傳鎮瀾宮是清雍正8年（西元1730年）自湄洲天后祖廟恭請媽祖神像來台。每年農曆3月初「遶境進香」場面浩大，許多民眾跟隨遶境隊伍走完全程，各地廟宇均有迎媽祖的慶祝活動。'
+        title: '台中站',
+        text: '來到台中一定要造訪大甲媽祖，恭喜獲得好運勳章！',
+        click: false
       },
       nantou: {
         title: '南投日月潭',
-        text: '日月潭面積827公頃，湖面周圍約33公里，北半部形如日輪，南半部形如月鉤，故而得名。在日月潭你可以搭船遊湖，也能騎單車環湖。每年「泳渡日月潭」與「環湖馬拉松賽」也讓日月潭除了美景，更多了活力。'
+        text: '日月潭面積827公頃，湖面周圍約33公里，北半部形如日輪，南半部形如月鉤，故而得名。在日月潭你可以搭船遊湖，也能騎單車環湖。每年「泳渡日月潭」與「環湖馬拉松賽」也讓日月潭除了美景，更多了活力。',
+        click: false
       },
       tainan: {
-        title: '台南赤崁樓',
-        text: '台南市是全台歷史最悠久的城市。鄭成功驅逐荷蘭人後，在臺南開府設治。至1683年，清國平臺，在臺南設臺灣府，為全臺首府。重要古蹟有赤崁樓、安平古堡、億載金城等古蹟。但來到台南除了歷史之旅，美食更是少不了的行程，建議您帶著足夠的肚量才能多裝幾份回味無窮的台灣小吃。'
+        title: '台南站',
+        text: '來到台南怎麼可以不來個道地小吃呢！恭喜獲得吃貨認證！',
+        click: false
       },
       kaohsiung: {
         title: '高雄佛光山',
-        text: '高雄是充滿活力陽光的海港城市，除了愛河、壽山、西子灣、蓮池潭、旗津、左營舊城等知名景點外，位於大樹鄉的佛光山更是不可錯過的景點。最具特色的大佛城是主要地標。每年農曆春節到元宵期間，佛光山的花燈活動都吸引大批民眾。'
+        text: '高雄是充滿活力陽光的海港城市，除了愛河、壽山、西子灣、蓮池潭、旗津、左營舊城等知名景點外，位於大樹鄉的佛光山更是不可錯過的景點。最具特色的大佛城是主要地標。每年農曆春節到元宵期間，佛光山的花燈活動都吸引大批民眾。',
+        click: false
       },
       pingtung: {
-        title: '屏東東港',
-        text: '東隆宮是東港重要的象徵，當地人稱它「王爺廟」，主祀溫府千歲，是每三年舉辦一次的「迎王平安祭」主廟。平安祭原始用意為送瘟神出海，約在農曆9月舉行，除廟會活動外，最後一天的燒王船儀式更是整個祭典的高潮。'
+        title: '屏東站',
+        text: '有點累了吧！給你一份東港美食！繼續闖關吧！',
+        click: false
       },
       taitung: {
         title: '台東鹿野高台',
-        text: '鹿野高台擁有絕佳視野，能一覽整個高台地區與卑南溪谷底的田野景色，也是台灣東部優良的天然空域活動場地。每年6月至8月時都會有「國際熱氣球嘉年華」，正是體驗熱氣球的大好時機。除了熱氣球繫留體驗，還有熱氣球自由飛行表演、絢麗燦爛的光雕音樂會等活動。'
+        text: '鹿野高台擁有絕佳視野，能一覽整個高台地區與卑南溪谷底的田野景色，也是台灣東部優良的天然空域活動場地。每年6月至8月時都會有「國際熱氣球嘉年華」，正是體驗熱氣球的大好時機。除了熱氣球繫留體驗，還有熱氣球自由飛行表演、絢麗燦爛的光雕音樂會等活動。',
+        click: false
       },
       hualien: {
-        title: '花蓮太魯閣',
-        text: '太魯閣國家公園以雄偉壯麗、幾近垂直的大理岩峽谷景觀聞名。沿著立霧溪的峽谷風景線而行，觸目所及皆是壁立千仞的峭壁、斷崖、峽谷、連綿曲折的山洞隧道、大理岩層和溪流等風光。燕子口和九曲洞，是太魯閣峽谷最讓人心動的自然奇觀，也是峽谷最窄的兩段，臨溪側闢有人行步道供遊客漫步欣賞。'
+        title: '花蓮站',
+        text: '來到花蓮必遊之地太魯閣國家公園，台灣特有種陪你一起闖關！',
+        click: false
       },
       ilan: {
-        title: '宜蘭頭城龜山島',
-        text: '龜山島位在宜蘭縣頭城鎮海岸以東約10公里處，孤懸於海中之火山島嶼，也是一座活火山，因其型似浮龜而得名。龜山島最有趣的活動就屬每年3~10月賞鯨行程。在這裡最常看到的就是飛旋海豚，這類海豚非常活潑，常逗得遊客驚呼連連。'
+        title: '宜蘭站',
+        text: '造訪宜蘭龜山島一定要來點戶外活動！動起來吧！',
+        click: false
       }
     }
   }
@@ -67,7 +86,7 @@ export default class GameScene extends Phaser.Scene {
     // load assets
     this.load.image('bg-0', '/images/bg-0.png')
     this.load.image('bg', '/images/bg.png');
-    this.load.image('arrow-down', '/images/arrow-down.png')
+    this.load.image('arrow-down', '/images/start.png')
     this.load.image('taiwan', '/images/taiwan.png')
     this.load.image('oh-bear', '/images/oh-bear.png')
     this.load.image('taipei', '/images/taipei.png')
@@ -82,8 +101,20 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('taitung', '/images/taitung.png')
     this.load.image('hualien', '/images/hualien.png')
     this.load.image('point', '/images/point.png')
+    this.load.image('point-gray', '/images/point-gray.png')
     this.load.image('dialog', '/images/dialog.png')
     this.load.image('cat-hand', '/images/cat-hand.png')
+
+    this.load.image('taichung-reward-1', '/images/taichung-reward-1.png')
+    this.load.image('taichung-reward-2', '/images/taichung-reward-2.png')
+    this.load.image('pingtung-reward-1', '/images/pingtung-reward-1.png')
+    this.load.image('pingtung-reward-2', '/images/pingtung-reward-2.png')
+    this.load.image('tainan-reward-1', '/images/tainan-reward-1.png')
+    this.load.image('tainan-reward-2', '/images/tainan-reward-2.png')
+    this.load.image('hualien-reward-1', '/images/hualien-reward-1.png')
+    this.load.image('hualien-reward-2', '/images/hualien-reward-2.png')
+    this.load.image('ilan-reward-1', '/images/ilan-reward-1.png')
+    this.load.image('ilan-reward-2', '/images/ilan-reward-2.png')
 
     this.load.spritesheet('score', '/images/score.png', { frameWidth: 287, frameHeight: 394 });
     this.load.spritesheet('cat', '/images/cat.png', { frameWidth: 579, frameHeight: 433 });
@@ -170,7 +201,7 @@ export default class GameScene extends Phaser.Scene {
     this.firstGroup.add(this.catHand)
 
     // add arrow down button
-    this.arrowButton = this.add.image(650, 625, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
+    this.arrowButton = this.add.image(650, 605, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
     this.firstGroup.add(this.arrowButton);
     // event listener for the background
     this.arrowButton.on('pointerdown', this.nextPage, this);
@@ -238,7 +269,7 @@ export default class GameScene extends Phaser.Scene {
       })
       this.pointGroup.children.entries[i].on('pointerdown', function(pointer) {
         if (!that.modalLock) {
-          that.modalLock = true       
+          that.modalLock = true
           that.elementTween.play()
           that.changeModalContent(this.name)
         }
@@ -267,7 +298,7 @@ export default class GameScene extends Phaser.Scene {
         })
         this.mainGroup.children.entries[i].on('pointerdown', function(pointer) {
           if (!that.modalLock) {
-            that.modalLock = true       
+            that.modalLock = true
             that.elementTween.play()
             that.changeModalContent(this.name)
           }
@@ -288,6 +319,19 @@ export default class GameScene extends Phaser.Scene {
     this.score = this.add.sprite(1100, 460, 'score')
     this.score.anims.play('walk')
     this.mainGroup.add(this.score)
+
+    // add tip text
+    this.tipText =  this.add.text(1010, 435, '共要獲得5個獎勵 和100分才算完成 任務喔!快開始吧!', this._fontStyle)
+    this.tipText.setWordWrapWidth(300)
+    this.mainGroup.add(this.tipText)
+
+    // add score text
+    this.scoreText = this.add.text(1100, 20, '分數: 0/100', this._fontStyle)
+    this.mainGroup.add(this.scoreText)
+
+    // add reward text
+    this.rewardText = this.add.text(50, 20, '獎勵: ', this._fontStyle)
+    this.mainGroup.add(this.rewardText)
 
     this.mainGroup.toggleVisible()
     this.pointGroup.toggleVisible()
@@ -311,6 +355,14 @@ export default class GameScene extends Phaser.Scene {
     div.appendChild(this.modalText)
     div.appendChild(this.modalButton)
 
+    const shuffleScore = _.shuffle(this.scoreTable)
+    this.modalContent['taipei'].num = shuffleScore[0]
+    this.modalContent['taoyuan'].num = shuffleScore[1]
+    this.modalContent['miaoli'].num = shuffleScore[2]
+    this.modalContent['nantou'].num = shuffleScore[3]
+    this.modalContent['kaohsiung'].num = shuffleScore[4]
+    this.modalContent['taitung'].num = shuffleScore[5]
+
     this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
     this.element.setAlpha(0)
 
@@ -323,6 +375,36 @@ export default class GameScene extends Phaser.Scene {
     })
 
     this.modalButton.addEventListener('click', (e) => {
+      let name = this.currentModal;
+      if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {
+        if (!this.modalContent[name].click) {
+          this.modalContent[name].click = true
+          this.modalContent[name].target = this.add.image(580, 150, `${this.currentModal}-reward-${this.modalContent[name].num}`)
+          this.tweens.add({
+            targets: this.modalContent[name].target,
+            duration: 800,
+            x: this.rewardPosition.x + 60 * this.rewardCounter,
+            y: this.rewardPosition.y,
+            scale: 0.5,
+            delay: 300,
+            pause: false,
+          })
+          this.rewardCounter++;
+        }
+      } else {
+        if (!this.modalContent[name].click) {
+          this.modalContent[name].click = true
+          this.scoreTween = this.tweens.addCounter({
+            from: this.scoreNumber,
+            to: this.scoreNumber +  this.modalContent[name].num,
+            duration: 1000
+          })
+          this.scoreNumber += this.modalContent[name].num
+        }
+      }
+      let target = _.find(this.pointGroup.children.entries, function(o){ return o.name === name })
+      target.setTexture('point-gray')
+      console.log(this.modalContent)
       this.element.setAlpha(0)
       this.modalLock = false
     })
@@ -344,12 +426,21 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-
+    let score = (this.scoreTween) ? parseInt(this.scoreTween.getValue()) : 0
+    this.scoreText.setText(`分數: ${score}/100`)
   }
 
   changeModalContent(name) {
+    this.currentModal = name;
     this.modalHead.innerText = this.modalContent[name].title
-    this.modalImage.src = `/images/${name}.jpg`
+    if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {
+      if (!this.modalContent[name].num) {
+        this.modalContent[name].num = _.random(1, 2)
+      }
+      this.modalImage.src = `/images/${name}-reward-${this.modalContent[name].num}.png`
+    } else {
+      this.modalImage.src = `/images/${name}.jpg`
+    }
     this.modalText.innerText = this.modalContent[name].text
   }
 

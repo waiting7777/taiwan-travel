@@ -52,8 +52,8 @@ export default {
     }
 
     #modal-image {
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin: 10px auto;
+      display: block;
     }
 
     #modal-text {
