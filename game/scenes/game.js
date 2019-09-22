@@ -128,16 +128,11 @@ export default class GameScene extends Phaser.Scene {
   }
   
   create() {
-    let scaleX = this.cameras.main.width / 1280
-    let scaleY = this.cameras.main.height / 675
-    let scale = Math.max(scaleX, scaleY)
-
     // create first group
     this.firstGroup = this.add.group()
 
     // add bg 0
     this.bg0 = this.add.image(0, 0, 'bg-0').setOrigin(0).setDepth(-1)
-    this.bg0.setScale(scale).setScrollFactor(0)
 
     // add cat
     let catAnim = this.anims.create({
@@ -216,7 +211,6 @@ export default class GameScene extends Phaser.Scene {
 
     // add bg
     this.bg = this.add.image(0, 0, 'bg').setOrigin(0).setDepth(-1).setAlpha(0)
-    this.bg.setScale(scale).setScrollFactor(0)
 
     // create main group
     this.mainGroup = this.add.group()
@@ -423,7 +417,6 @@ export default class GameScene extends Phaser.Scene {
       }
       let target = _.find(this.pointGroup.children.entries, function(o){ return o.name === name })
       target.setTexture('point-gray')
-      console.log(this.modalContent)
       this.element.setAlpha(0)
       this.modalLock = false
     })
@@ -442,6 +435,8 @@ export default class GameScene extends Phaser.Scene {
       })
       camera.fadeIn(800, 149, 188, 194)
     }, this)
+
+    window.dispatchEvent(new Event('resize'))
   }
 
   update() {

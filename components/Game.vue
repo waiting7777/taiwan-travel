@@ -9,12 +9,14 @@ import Game from '~/game';
 
 export default {
   mounted () {
-    this.game = new Game();
-  },
-  methods: {
-    closeModal: function() {
-      this.test = 'close'
-    }
+    window.game = new Game();
+    window.addEventListener('resize', function(event) {
+      if (window.innerWidth >= 1280) {
+        game.scale.resize(1280, 675)
+      } else {
+        game.scale.resize(window.innerWidth, window.innerHeight)
+      }
+    })
   },
   data () {
     return {
