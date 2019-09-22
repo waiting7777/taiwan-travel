@@ -8,10 +8,12 @@ export default class GameScene extends Phaser.Scene {
 
   init() {
     this._fontStyle = {
-      fontSize: '24px',
       color: '#000',
-      fontFamily: 'Microsoft JhengHei'
+      font: 'bold 24px Microsoft JhengHei',
+      lineSpacing: 8
     }
+    this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分賽'
+    this.welcomeText2 = '只要完成11個關卡 尋寶就能參加「美國 -台北來回機票」抽獎！ 點下方按鈕Let\'s go!'
     this.modalLock = false;
     this.modalContent = {
       taipei: {
@@ -80,8 +82,10 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('taitung', '/images/taitung.png')
     this.load.image('hualien', '/images/hualien.png')
     this.load.image('point', '/images/point.png')
+    this.load.image('dialog', '/images/dialog.png')
+    this.load.image('cat-hand', '/images/cat-hand.png')
 
-    this.load.spritesheet('score', '/images/score.png', { frameWidth: 322, frameHeight: 433 });
+    this.load.spritesheet('score', '/images/score.png', { frameWidth: 287, frameHeight: 394 });
     this.load.spritesheet('cat', '/images/cat.png', { frameWidth: 579, frameHeight: 433 });
     this.load.spritesheet('cat2', '/images/cat2.png', { frameWidth: 320, frameHeight: 300 })
   }
@@ -105,7 +109,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 3,
       repeat: -1
     });
-    this.cat = this.add.sprite(720, 410, 'cat').setScale(0.9)
+    this.cat = this.add.sprite(720, 390, 'cat').setScale(0.9)
     this.cat.anims.play('catWalk')
 
     // add cat2
@@ -115,16 +119,55 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 3,
       repeat: -1
     });
-    this.cat2 = this.add.sprite(1110, 420, 'cat2').setScale(0.9)
+    this.cat2 = this.add.sprite(1110, 400, 'cat2').setScale(0.9)
     this.cat2.anims.play('catWalk2')
 
+    // add dialog
+    this.dialog = this.add.image(360, 400, 'dialog').setAlpha(0)
+    this.firstGroup.add(this.dialog)
+    this.tweens.add({
+      targets: this.dialog,
+      duration: 800,
+      alpha: 1,
+      pause: false,
+      delay: 800,
+      onCompleteScope: this,
+      onComplete: function() {
+        for(let i = 0; i <= this.welcomeText.length; i++) {
+          setTimeout(() => {
+            this.welcome.setText(this.welcomeText.substr(0, i))
+            if (i === this.welcomeText.length) {
+              this.tweens.add({
+                targets: this.catHand,
+                duration: 800,
+                alpha: 1,
+                pause: false,
+                onCompleteScope: this,
+                onComplete: function() {
+                  this.welcome.setText('')
+                  this.welcome.setStyle({font: 'bold 16px Microsoft JhengHei'})
+                  this.welcome.setX(215)
+                  for(let i = 0; i <= this.welcomeText2.length; i++) {
+                    setTimeout(() => {
+                      this.welcome.setText(this.welcomeText2.substr(0, i))
+                    }, i * 120)
+                  }
+                }
+              })
+            }
+          }, i * 120)
+        }
+      }
+    })
+
     // add welcome text
-    this.welcome1 = this.add.text(350, 200, 'Hi~歡迎來到', this._fontStyle)
-    this.welcome2 = this.add.text(340, 230, '台灣好好玩', { fontSize: '32px', fontWeight: 'bold', color: '#000', fontFamily: 'Microsoft JhengHei' })
-    this.welcome3 = this.add.text(335, 270, '景點尋寶積分賽', this._fontStyle)
-    this.firstGroup.add(this.welcome1);
-    this.firstGroup.add(this.welcome2);
-    this.firstGroup.add(this.welcome3);
+    this.welcome = this.add.text(225, 350, '', this._fontStyle)
+    this.welcome.setWordWrapWidth(150)
+    this.firstGroup.add(this.welcome)
+    
+    // add cat hand
+    this.catHand = this.add.image(415, 375, 'cat-hand').setAlpha(0)
+    this.firstGroup.add(this.catHand)
 
     // add arrow down button
     this.arrowButton = this.add.image(650, 625, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
@@ -132,11 +175,13 @@ export default class GameScene extends Phaser.Scene {
     // event listener for the background
     this.arrowButton.on('pointerdown', this.nextPage, this);
 
+    // =========== second ==============
+
     // add bg
     this.bg = this.add.image(0, 0, 'bg').setOrigin(0).setDepth(-1).setAlpha(0)
     this.bg.setScale(scale).setScrollFactor(0)
 
-    // create first group
+    // create main group
     this.mainGroup = this.add.group()
     this.pointGroup = this.add.group()
 

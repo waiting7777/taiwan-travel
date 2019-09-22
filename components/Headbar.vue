@@ -37,7 +37,7 @@ export default {
       justify-content: center;
       align-items: center;
       border-bottom: 1px solid #d9d9d9;
-      padding: 20px 0 20px 0;
+      padding: 10px 0;
       border-top: 5px solid #f6b26b;
     }
 
