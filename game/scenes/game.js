@@ -345,14 +345,14 @@ export default class GameScene extends Phaser.Scene {
     this.mainGroup.add(this.tipText)
 
     // add score text
-    this.scoreText = this.add.text(1100, 20, '分數: 0/100', this._fontStyle)
+    this.scoreText = this.add.text(1100, 20, '分數 0/100', this._fontStyle)
     this.mainGroup.add(this.scoreText)
 
     // add score point
     this.scorePoint = this.add.text(500, 600, '', this._fontStyle).setAlpha(0)
 
     // add reward text
-    this.rewardText = this.add.text(50, 20, '獎勵: ', this._fontStyle)
+    this.rewardText = this.add.text(50, 20, '獎勵 ', this._fontStyle)
     this.mainGroup.add(this.rewardText)
 
     this.mainGroup.toggleVisible()
