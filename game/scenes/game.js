@@ -12,6 +12,7 @@ export default class GameScene extends Phaser.Scene {
       font: 'bold 24px Microsoft JhengHei',
       lineSpacing: 8
     }
+    this.end = false;
     this.rewardCounter = 0;
     this.rewardPosition = {
       x: 140,
@@ -106,8 +107,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('ilan', '/images/ilan.png')
     this.load.image('taitung', '/images/taitung.png')
     this.load.image('hualien', '/images/hualien.png')
-    this.load.image('point', '/images/point.png')
-    this.load.image('point-gray', '/images/point-gray.png')
+    this.load.image('point', '/images/point-gray.png')
+    this.load.image('point-gray', '/images/point.png')
     this.load.image('dialog', '/images/dialog.png')
     this.load.image('cat-hand', '/images/cat-hand.png')
 
@@ -254,6 +255,9 @@ export default class GameScene extends Phaser.Scene {
       })
       let that = this
       this.pointGroup.children.entries[i].on('pointerover', function(pointer) {
+        if (that.end) {
+          return
+        }
         if (!that.modalLock) {
           this.setScale(1.2)
           let name = this.name
@@ -262,12 +266,18 @@ export default class GameScene extends Phaser.Scene {
         }       
       })
       this.pointGroup.children.entries[i].on('pointerout', function(pointer) {
+        if (that.end) {
+          return
+        }
         this.setScale(1)
         let name = this.name
         let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
         target.setScale(1)
       })
       this.pointGroup.children.entries[i].on('pointerdown', function(pointer) {
+        if (that.end) {
+          return
+        }
         if (!that.modalLock) {
           that.modalLock = true
           that.elementTween.play()
@@ -283,6 +293,9 @@ export default class GameScene extends Phaser.Scene {
         })
         let that = this
         this.mainGroup.children.entries[i].on('pointerover', function(pointer) {
+          if (that.end) {
+            return
+          }
           if (!that.modalLock) {
             this.setScale(1.2)
             let name = this.name
@@ -291,12 +304,18 @@ export default class GameScene extends Phaser.Scene {
           }         
         })
         this.mainGroup.children.entries[i].on('pointerout', function(pointer) {
+          if (that.end) {
+            return
+          }
           this.setScale(1)
           let name = this.name
           let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
           target.setScale(1)
         })
         this.mainGroup.children.entries[i].on('pointerdown', function(pointer) {
+          if (that.end) {
+            return
+          }
           if (!that.modalLock) {
             that.modalLock = true
             that.elementTween.play()
@@ -419,6 +438,17 @@ export default class GameScene extends Phaser.Scene {
       target.setTexture('point-gray')
       this.element.setAlpha(0)
       this.modalLock = false
+
+      let finish = _.filter(this.modalContent, function(o) { return o.click == true })
+      if (finish.length === 11 && !this.end) {
+        setTimeout(() => {
+          this.end = true;
+          this.tipText.setText('恭喜完成!\n領證書摟!')
+          this.tipText.setX(1025)
+          this.tipText.setY(450)
+          window.dispatchEvent(new CustomEvent('cert', { detail: { test: 5 }}))
+        }, 1000)
+      }
     })
 
     this.cameras.main.once('camerafadeoutcomplete', function(camera) {
