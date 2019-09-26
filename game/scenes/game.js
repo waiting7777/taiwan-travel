@@ -9,7 +9,7 @@ export default class GameScene extends Phaser.Scene {
   init() {
     this._fontStyle = {
       color: '#000',
-      font: 'bold 24px Microsoft JhengHei',
+      font: 'bold 24px 微軟正黑體',
       lineSpacing: 8
     }
     this.end = false;
@@ -21,8 +21,9 @@ export default class GameScene extends Phaser.Scene {
     this.scoreTable = [13, 14, 16, 18, 19, 20]
     this.scoreNumber = 0;
     this.currentModal = ''
-    this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分賽'
-    this.welcomeText2 = '只要完成11個關卡 尋寶就能參加「美國 -台北來回機票」抽獎！ 點下方按鈕Let\'s go!'
+    this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分活動'
+    this.welcomeText2 = '在台灣地圖完成11景點 尋寶，就能參加 「紐約-台北來回機票」 抽獎！點下方「開始」！'
+    this.tipChangeFlag = false;
     this.modalLock = false;
     this.modalContent = {
       taipei: {
@@ -45,7 +46,7 @@ export default class GameScene extends Phaser.Scene {
       },
       taichung: {
         title: '台中站',
-        text: '來到台中一定要造訪大甲媽祖，恭喜獲得好運勳章！',
+        text: ['鎮瀾宮的大甲媽祖送上平安符勳章，讓你生活順心順利！', '行經台中一定要到大甲鎮瀾宮祈福，拜拜讓旅程祈求一切順利。'],
         click: false
       },
       nantou: {
@@ -56,7 +57,7 @@ export default class GameScene extends Phaser.Scene {
       },
       tainan: {
         title: '台南站',
-        text: '來到台南怎麼可以不來個道地小吃呢！恭喜獲得吃貨認證！',
+        text: ['恭喜獲得吃貨認證！吃碗擔仔麵，充電再出發！', '來到台南怎麼可以錯過道地小吃呢！來碗香噴噴魯肉飯！'],
         click: false
       },
       kaohsiung: {
@@ -67,7 +68,7 @@ export default class GameScene extends Phaser.Scene {
       },
       pingtung: {
         title: '屏東站',
-        text: '有點累了吧！給你一份東港美食！繼續闖關吧！',
+        text: ['來點旗魚黑輪，炸得黃金酥脆口感，絕對讓你愛不釋口！', '你累了嗎？來碗熱騰騰的東港肉粿補充能量吧！'],
         click: false
       },
       taitung: {
@@ -78,12 +79,12 @@ export default class GameScene extends Phaser.Scene {
       },
       hualien: {
         title: '花蓮站',
-        text: '來到花蓮必遊之地太魯閣國家公園，台灣特有種陪你一起闖關！',
+        text: ['恭喜獲台灣特有種「台灣黑熊」，陪你一起在太魯閣國家公園尋寶！', '恭喜獲台灣特有種「台灣獼猴」，陪你一起在太魯閣國家公園尋寶！'],
         click: false
       },
       ilan: {
         title: '宜蘭站',
-        text: '造訪宜蘭龜山島一定要來點戶外活動！動起來吧！',
+        text: ['恭喜獲海豚勳章！搭船賞鯨豚是龜山島必做活動！', '宜蘭龜山島是體驗立槳衝浪 (SUP)的好地方！動起來吧！'],
         click: false
       }
     }
@@ -178,23 +179,23 @@ export default class GameScene extends Phaser.Scene {
                 onCompleteScope: this,
                 onComplete: function() {
                   this.welcome.setText('')
-                  this.welcome.setStyle({font: 'bold 16px Microsoft JhengHei'})
-                  this.welcome.setX(215)
+                  this.welcome.setStyle({font: 'bold 16px 微軟正黑體'})
+                  this.welcome.setX(205)
                   for(let i = 0; i <= this.welcomeText2.length; i++) {
                     setTimeout(() => {
                       this.welcome.setText(this.welcomeText2.substr(0, i))
-                    }, i * 120)
+                    }, i * 150)
                   }
                 }
               })
             }
-          }, i * 120)
+          }, i * 150)
         }
       }
     })
 
     // add welcome text
-    this.welcome = this.add.text(225, 350, '', this._fontStyle)
+    this.welcome = this.add.text(215, 350, '', this._fontStyle)
     this.welcome.setWordWrapWidth(150)
     this.firstGroup.add(this.welcome)
     
@@ -340,7 +341,7 @@ export default class GameScene extends Phaser.Scene {
     this.mainGroup.add(this.score)
 
     // add tip text
-    this.tipText =  this.add.text(1010, 435, '共要獲得5個獎勵 和100分才算完成 任務喔!快開始吧!', this._fontStyle)
+    this.tipText =  this.add.text(1000, 450, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
     this.tipText.setWordWrapWidth(300)
     this.mainGroup.add(this.tipText)
 
@@ -350,6 +351,7 @@ export default class GameScene extends Phaser.Scene {
 
     // add score point
     this.scorePoint = this.add.text(500, 600, '', this._fontStyle).setAlpha(0)
+    this.scorePoint.setStyle({ font: 'bold 32px 微軟正黑體' })
 
     // add reward text
     this.rewardText = this.add.text(50, 20, '獎勵 ', this._fontStyle)
@@ -371,7 +373,7 @@ export default class GameScene extends Phaser.Scene {
     this.modalText.innerText = 'TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。'
     this.modalButton = document.createElement('div')
     this.modalButton.id ="modal-button"
-    this.modalButton.innerText = '繼續闖關'
+    this.modalButton.innerText = '繼續尋寶'
     div.appendChild(this.modalHead)
     div.appendChild(this.modalImage)
     div.appendChild(this.modalText)
@@ -440,10 +442,14 @@ export default class GameScene extends Phaser.Scene {
       this.modalLock = false
 
       let finish = _.filter(this.modalContent, function(o) { return o.click == true })
+      if (finish.length >= 4 && !this.tipChangeFlag) {
+        this.tipChangeFlag = true
+        this.tipText.setText('讓所有貓咪座標\n變成橘色才算完成！')
+      }
       if (finish.length === 11 && !this.end) {
         setTimeout(() => {
           this.end = true;
-          this.tipText.setText('恭喜完成!\n領證書摟!')
+          this.tipText.setText('恭喜完成!\n領證書囉!')
           this.tipText.setX(1025)
           this.tipText.setY(450)
           window.dispatchEvent(new CustomEvent('cert', { detail: { test: 5 }}))
@@ -480,12 +486,13 @@ export default class GameScene extends Phaser.Scene {
     if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {
       if (!this.modalContent[name].num) {
         this.modalContent[name].num = _.random(1, 2)
+        this.modalText.innerText = this.modalContent[name].text[this.modalContent[name].num - 1]
       }
       this.modalImage.src = `/images/${name}-reward-${this.modalContent[name].num}.png`
     } else {
       this.modalImage.src = `/images/${name}.jpg`
+      this.modalText.innerText = this.modalContent[name].text
     }
-    this.modalText.innerText = this.modalContent[name].text
   }
 
   nextPage() {
