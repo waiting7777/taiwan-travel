@@ -30,23 +30,37 @@ export default {
 <style lang="scss" scoped>
   #footer {
     height: 75px;
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    padding: 0 15px;
+    grid-template-columns: 135px 175px auto 190px;
+    grid-gap: 15px;
     align-items: center;
     margin-top: 7px;
 
-    #wj {
-      margin: 0 15px;
-    }
+    @media screen and (max-width: 1023px) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 7px;
+      height: auto;
+      padding-bottom: 20px;
 
-    #tw {
-      margin: 0 15px;
+      #ca {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        text-align: center;
+        height: 50px;
+      }
+
+      #text {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        text-align: center;
+        font-size: 12px;
+      }
     }
 
     #ca {
-      margin-left: auto;
-      margin-right: 20px;
-
       img {
         margin-right: 15px;
       }

@@ -43,12 +43,24 @@ export default {
       border-bottom: 1px solid #d9d9d9;
       padding: 10px 0;
       border-top: 5px solid #f6b26b;
+
+      @media screen and (max-width: 1023px) {
+        border-bottom: none;
+
+        img {
+          width: 200px;
+        }
+      }
     }
 
     #headbar-button-contain {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1023px) {
+        display: none;
+      }
 
       .headbar-button {
         width: 150px;

@@ -13,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
       lineSpacing: 8
     }
     this.end = false;
+    this.rewardArray = [];
     this.rewardCounter = 0;
     this.rewardPosition = {
       x: 140,
@@ -464,13 +465,14 @@ export default class GameScene extends Phaser.Scene {
         this.tipChangeFlag = true
         this.tipText.setText('讓所有貓咪座標\n變成橘色才算完成！')
       }
-      if (finish.length === 1 && !this.end) {
+      if (finish.length === 11 && !this.end) {
         setTimeout(() => {
           this.end = true;
           this.tipText.setText('恭喜完成!\n領證書囉!')
           this.tipText.setX(1025)
           this.tipText.setY(450)
-          window.dispatchEvent(new CustomEvent('cert', { detail: { test: 5 }}))
+          console.log(this.rewardArray)
+          window.dispatchEvent(new CustomEvent('cert', { detail: { reward: this.rewardArray }}))
         }, 600)
       }
     })
@@ -505,6 +507,10 @@ export default class GameScene extends Phaser.Scene {
       if (!this.modalContent[name].num) {
         this.modalContent[name].num = _.random(1, 2)
         this.modalText.innerText = this.modalContent[name].text[this.modalContent[name].num - 1]
+        this.rewardArray.push({
+          name: name,
+          num: this.modalContent[name].num
+        })
       }
       this.modalImage.src = `/images/${name}-reward-${this.modalContent[name].num}.png`
     } else {

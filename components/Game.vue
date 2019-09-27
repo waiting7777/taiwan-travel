@@ -10,6 +10,9 @@
           <img v-if="stage == 1" src="/images/cert-text-1.png" />
           <img v-if="stage == 2" src="/images/cert-text-2.png" />
         </div>
+        <div id="cert-reward" v-if="stage == 2">
+          <img v-for="(item, index) in reward" :key="index" :src="`/images/${item.name}-reward-${item.num}.png`" />
+        </div>
         <div id="cert-input" v-if="stage == 1">
           <input type="text" v-model="name">
           <p v-if="submitStatus === 'error'" class="text-danger">請輸入暱稱</p>
@@ -51,12 +54,16 @@ export default {
     window.addEventListener('cert', (event, param) => {
       console.log(event, param)
       this.certOpen = true
+      if (event.detail && event.detail.reward) {
+        this.reward = event.detail.reward
+        console.log(this.reward)
+      }
     })
     window.addEventListener('resize', (event) => {
-      if (window.innerWidth >= 1280) {
+      if (window.innerWidth >= 1024) {
         game.scale.resize(1280, 675)
       } else {
-        game.scale.resize(window.innerWidth, window.innerHeight)
+        game.scale.resize(375, 530)
       }
     })
   },
@@ -79,7 +86,8 @@ export default {
       certOpen: false,
       stage: 1,
       name: '',
-      submitStatus: null
+      submitStatus: null,
+      reward: []
     }
   }
 }
@@ -149,6 +157,16 @@ export default {
         input {
           width: 100px;
           height: 24px;
+        }
+      }
+
+      #cert-reward {
+        position: absolute;
+        top: 230px;
+        left: 60px;
+
+        img {
+          width: 60px;
         }
       }
 
