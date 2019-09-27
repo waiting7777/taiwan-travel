@@ -111,6 +111,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('point', '/images/point-gray.png')
     this.load.image('point-gray', '/images/point.png')
     this.load.image('dialog', '/images/dialog.png')
+    this.load.image('dialog-little', '/images/dialog-little.png')
     this.load.image('cat-hand', '/images/cat-hand.png')
 
     this.load.image('taichung-reward-1', '/images/taichung-reward-1.png')
@@ -184,6 +185,14 @@ export default class GameScene extends Phaser.Scene {
                   for(let i = 0; i <= this.welcomeText2.length; i++) {
                     setTimeout(() => {
                       this.welcome.setText(this.welcomeText2.substr(0, i))
+                      if (i === this.welcomeText2.length) {
+                        this.tweens.add({
+                          targets: [this.dialogLittle, this.dialogLittleText],
+                          duration: 800,
+                          alpha: 1,
+                          pause: false,
+                        })
+                      }
                     }, i * 150)
                   }
                 }
@@ -193,6 +202,15 @@ export default class GameScene extends Phaser.Scene {
         }
       }
     })
+
+    // add dialog little
+    this.dialogLittle = this.add.image(950, 355, 'dialog-little').setAlpha(0)
+    this.firstGroup.add(this.dialogLittle)
+
+    // add dialog little text
+    this.dialogLittleText = this.add.text(900, 335, '還可抽\n禮卡喔！', this._fontStyle)
+    this.dialogLittleText.setStyle({ font: 'bold 16px 微軟正黑體' }).setAlpha(0)
+    this.firstGroup.add(this.dialogLittleText)
 
     // add welcome text
     this.welcome = this.add.text(215, 350, '', this._fontStyle)
@@ -446,14 +464,14 @@ export default class GameScene extends Phaser.Scene {
         this.tipChangeFlag = true
         this.tipText.setText('讓所有貓咪座標\n變成橘色才算完成！')
       }
-      if (finish.length === 11 && !this.end) {
+      if (finish.length === 1 && !this.end) {
         setTimeout(() => {
           this.end = true;
           this.tipText.setText('恭喜完成!\n領證書囉!')
           this.tipText.setX(1025)
           this.tipText.setY(450)
           window.dispatchEvent(new CustomEvent('cert', { detail: { test: 5 }}))
-        }, 1000)
+        }, 600)
       }
     })
 

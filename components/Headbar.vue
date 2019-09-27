@@ -18,7 +18,11 @@
           觀光行程
         </nuxt-link>
       </div>
-      <div class="headbar-button">抽獎辦法</div>
+      <div class="headbar-button">
+        <nuxt-link to="/terms">
+          抽獎辦法
+        </nuxt-link>
+      </div>
       <div class="headbar-button">分享遊戲</div>
     </div>
   </div>

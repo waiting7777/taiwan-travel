@@ -9,6 +9,10 @@
     font-family: Arial, "Microsoft JhengHei","微軟正黑體", sans-serif;
   }
 
+  .alert-danger {
+    padding: 3px 5px !important;
+  }
+
   .carousel-inner {
     height: 480px;
   }
