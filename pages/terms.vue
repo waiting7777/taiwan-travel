@@ -35,7 +35,6 @@ export default {
 
 <style lang="scss" scoped>
   .main {
-    height: 100vh;
 
     #terms {
       width: 100%;
@@ -43,7 +42,7 @@ export default {
       position: relative;
       background: #ffe599;
       padding: 20px 0;
-      height: calc(100vh - 265px);
+      min-height: calc(100vh - 265px);
 
       #terms-title {
         font-weight: bold;
@@ -56,6 +55,12 @@ export default {
         margin: 40px auto;
         line-height: 32px;
         font-size: 18px;
+
+        @media screen and (max-width: 1023px) {
+          width: 100%;
+          margin: 30px auto;
+          padding: 0 10px;
+        }
       }
     }
   }

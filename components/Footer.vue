@@ -37,6 +37,10 @@ export default {
     align-items: center;
     margin-top: 7px;
 
+    #text {
+      font-size: 12px;
+    }
+
     @media screen and (max-width: 1023px) {
       grid-template-columns: 1fr 1fr;
       grid-gap: 7px;
@@ -56,7 +60,6 @@ export default {
         grid-row-start: 3;
         grid-row-end: 4;
         text-align: center;
-        font-size: 12px;
       }
     }
 

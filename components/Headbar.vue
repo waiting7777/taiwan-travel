@@ -7,6 +7,29 @@
         </a>
       </div>
     </div>
+    <div id="headbar-bars" @click="toggleMenu">
+      <i v-if="!menuOpen" class="fas fa-bars"></i>
+      <i v-if="menuOpen" class="fas fa-times"></i>
+    </div>
+    <div id="headbar-menu-m" :class="{ active: menuOpen }">
+      <div class="headbar-button-m">
+        <nuxt-link to="/">
+          回到首頁
+        </nuxt-link>
+      </div>
+      <div class="headbar-button-m">
+        <nuxt-link to="/schedule">
+          觀光行程
+        </nuxt-link>
+      </div>
+      <div class="headbar-button-m">
+        <nuxt-link to="/terms">
+          抽獎辦法
+        </nuxt-link>
+      </div>
+      <div class="headbar-button-m">分享遊戲</div>
+      <img id="menu-bar-cat" src="/images/m/menu-bar-cat.png" />
+    </div>
     <div id="headbar-button-contain">
       <div class="headbar-button">
         <nuxt-link to="/">
@@ -30,12 +53,30 @@
 
 <script>
 export default {
-  
+  data: function() {
+    return {
+      menuOpen: false
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen
+    }
+  }
 }
 </script>
 
 <style lang="scss">
   #headbar {
+    #headbar-bars {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      top: 15px;
+      right: 10px;
+      font-size: 32px;
+    }
+
     #headbar-logo {
       display: flex;
       justify-content: center;
@@ -49,6 +90,48 @@ export default {
 
         img {
           width: 200px;
+        }
+      }
+    }
+
+    #headbar-menu-m.active {
+      height: calc(100vh - 73.56px);
+      opacity: 1;
+    }
+
+    #headbar-menu-m {
+      height: 0;
+      opacity: 0;
+      position: absolute;
+      z-index: 9999;
+      width: 100%;
+      top: 73.56px;
+      left: 0;
+      background: #fff;
+      padding-top: 60px;
+      transition: all 0.7s ease;
+
+      #menu-bar-cat {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        margin-left: -122px;
+      }
+
+
+      .headbar-button-m {
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        border-bottom: 1px solid #000;
+        width: 160px;
+        height: 40px;
+        margin: 5px auto;
+        text-align: center;
+
+        a {
+          color: #000;
+          text-decoration: none;
         }
       }
     }

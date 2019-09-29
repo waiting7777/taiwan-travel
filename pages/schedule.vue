@@ -1,5 +1,5 @@
 <template>
-  <div class="main" :class="{ active: modalActive }">
+  <div class="main">
     <Headbar />
     <div id="schedule-modal" :class="{ active: modalActive }">
       <div>
@@ -30,11 +30,11 @@
       </div>
     </div>
     <div id="schedule">
-      <img id="bg" src="/images/train.png" alt="">
       <div id="circle-1-1" class="circle-static circle-o">
         喔熊<br/>組長
       </div>
       <img id="arrow-1" src="/images/arrow-right.png" alt="">
+      <img id="arrow-1-m" src="/images/m/arrow-down.png" alt="">
       <div id="circle-1-2" class="circle circle-o" @click="open(0)">
         大啖<br/>美食
       </div>
@@ -54,6 +54,7 @@
         白貓<br/>帥帥
       </div>
       <img id="arrow-2" src="/images/arrow-right.png" alt="">
+      <img id="arrow-2-m" src="/images/m/arrow-down.png" alt="">
       <div id="circle-2-2" class="circle circle-b" @click="open(5)">
         北部<br/>地區
       </div>
@@ -69,6 +70,12 @@
       <div id="circle-2-6" class="circle circle-b" @click="open(9)">
         離島<br/>探索
       </div>
+      <img id="leaf-1" src="/images/m/leaf-1.png" />
+      <img id="leaf-2" src="/images/m/leaf-2.png" />
+      <img id="leaf-2-2" src="/images/m/leaf-2.png" />
+      <img id="leaf-3" src="/images/m/leaf-3.png" />
+      <img id="cat" :class="{ active: start }" src="/images/m/cat.png" />
+      <img id="oh-bear" :class="{ active: start }" src="/images/m/oh-bear.png" />
     </div>
     <Footer />
   </div>
@@ -154,6 +161,7 @@ const carouselData = [
 export default {
   data: () => {
     return {
+      start: false,
       modalActive: false,
       title: '',
       link: 'https://www.taiwan.net.tw/m1.aspx?sNo=0000106',
@@ -178,13 +186,15 @@ export default {
       ]
     }
   },
+  mounted: function() {
+    setTimeout(() => {
+      this.start = true;
+    }, 500)
+  },
   methods: {
     close: function() {
       this.modalActive = false;
-      setTimeout(() => {
-        window.scrollTo(0,1664);
-      }, 100)
-      
+      document.body.classList.remove('lock')
     },
     open: function(seq) {
       this.link = carouselData[seq].link;
@@ -197,6 +207,7 @@ export default {
         this.carousel[i].caption = carouselData[seq].captions[i]
       }
       this.modalActive = true;
+      document.body.classList.add('lock')
     }
   },
   components: {
@@ -214,14 +225,16 @@ export default {
   $left4: calc(5% + 710px);
   $left5: calc(5% + 870px);
   $left6: calc(5% + 1030px);
-
-  .main.active {
-    height: 100vh;
-  }
+  $top1m: 550px;
+  $top2m: 660px;
+  $top3m: 750px;
+  $top4m: 840px;
+  $top5m: 930px;
+  $top6m: 1020px;
 
   .main {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 
     #schedule-modal.active {
       transform: translate(0, 0);
@@ -229,7 +242,6 @@ export default {
 
     #schedule-modal {
       width: 100%;
-      height: 100%;
       position: absolute;
       top: 0;
       left: 0;
@@ -242,6 +254,9 @@ export default {
       flex-direction: column;
       transition: all 0.7s ease;
       transform: translate(100%, 0);
+      position: fixed;
+      height: 100vh;
+      overflow-y: scroll;
 
       #close {
         position: absolute;
@@ -249,21 +264,40 @@ export default {
         right: 60px;
         cursor: pointer;
         font-size: 36px;
+
+        @media screen and (max-width: 1023px) {
+          right: 20px;
+        }
       }
 
       #carousel {
         width: 800px;
         margin: 20px auto 40px auto;
+
+        @media screen and (max-width: 1023px) {
+          width: 85%;
+          margin: 15px auto;
+        }
       }
 
       #title {
         font-weight: bold;
         font-size: 24px;
         margin-top: 40px;
+
+        @media screen and (max-width: 1023px) {
+          margin-top: 15px;
+          font-size: 22px;
+        }
       }
 
       #text {
         width: 968px;
+
+        @media screen and (max-width: 1023px) {
+          width: 85%;
+          font-size: 14px;
+        }
       }
 
       #button {
@@ -288,13 +322,106 @@ export default {
     }
 
     #schedule {
-      width: 100%;
-      max-width: 1280px;
+      width: 1280px;
+      height: 1407px;
       margin: 0 auto;
       position: relative;
+      background-image: url('/images/train.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      @media screen and (max-width: 1023px) {
+        background-image: url('/images/m/train.png');
+        width: 100%;
+        height: 1129px;
+      }
 
       #bg {
         width: 100%;
+      }
+
+      #oh-bear {
+        position: absolute;
+        top: 178px;
+        left: 50%;
+        transition: all 0.7s ease;
+        transform: scale(1, 0);
+        transform-origin: bottom;
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
+      }
+
+      #oh-bear.active {
+        transform: scale(1, 1);
+      }
+
+      #cat {
+        position: absolute;
+        top: 359px;
+        right: -45px;
+        transition: all 0.7s ease;
+        transform: translate(100%, 0);
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
+      }
+
+      #cat.active {
+        transform: translate(0, 0);
+      }
+
+      #leaf-1 {
+        position: absolute;
+        bottom: -11px;
+        left: 50%;
+        margin-left: -13px;
+        display: none;
+        z-index: 5;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
+      }
+
+      #leaf-3 {
+        position: absolute;
+        bottom: -15px;
+        left: 5px;
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
+      }
+
+      #leaf-2 {
+        position: absolute;
+        bottom: -13px;
+        right: 3px;
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
+      }
+
+      #leaf-2-2 {
+        position: absolute;
+        bottom: -13px;
+        left: 50%;
+        margin-left: -49px;
+        z-index: 1;
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
       }
 
       .circle {
@@ -307,6 +434,12 @@ export default {
         color: #fff;
         font-size: 32px;
         font-weight: bold;
+
+        @media screen and (max-width: 1023px) {
+          width: 86px;
+          height: 81px;
+          font-size: 18px;
+        }
       }
 
       .circle-static {
@@ -318,14 +451,28 @@ export default {
         color: #fff;
         font-size: 32px;
         font-weight: bold;
+
+        @media screen and (max-width: 1023px) {
+          width: 86px;
+          height: 81px;
+          font-size: 18px;
+        }
       }
 
       .circle-o {
         background-image: url('/images/orange-circle.png');
+
+        @media screen and (max-width: 1023px) {
+          background-image: url('/images/m/orange-circle.png');
+        }
       }
 
       .circle-b {
         background-image: url('/images/blue-circle.png');
+
+        @media screen and (max-width: 1023px) {
+          background-image: url('/images/m/blue-circle.png');
+        }
       }
 
       .circle:hover {
@@ -336,84 +483,188 @@ export default {
         position: absolute;
         top: $top1;
         left: $left1;
+
+        @media screen and (max-width: 1023px) {
+          top: $top1m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #arrow-1 {
         position: absolute;
         top: calc(50% + 150px);
         left: calc(5% + 350px);
+
+        @media screen and (max-width: 1023px) {
+          display: none;
+        }
+      }
+
+      #arrow-1-m {
+        display: none;
+        position: absolute;
+        top: 625px;
+        left: 50%;
+        margin-left: -100px;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
       }
 
       #circle-1-2 {
         position: absolute;
         top: $top1;
         left: $left2;
+
+        @media screen and (max-width: 1023px) {
+          top: $top2m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #circle-1-3 {
         position: absolute;
         top: $top1;
         left: $left3;
+
+        @media screen and (max-width: 1023px) {
+          top: $top3m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #circle-1-4 {
         position: absolute;
         top: $top1;
         left: $left4;
+
+        @media screen and (max-width: 1023px) {
+          top: $top4m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #circle-1-5 {
         position: absolute;
         top: $top1;
         left: $left5;
+
+        @media screen and (max-width: 1023px) {
+          top: $top5m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #circle-1-6 {
         position: absolute;
         top: $top1;
         left: $left6;
+
+        @media screen and (max-width: 1023px) {
+          top: $top6m;
+          left: 50%;
+          margin-left: 40px;
+        }
       }
 
       #circle-2-1 {
         position: absolute;
         top: $top2;
         left: $left1;
+
+        @media screen and (max-width: 1023px) {
+          top: $top1m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
 
       #arrow-2 {
         position: absolute;
         top: calc(50% + 435px);
         left: calc(5% + 350px);
+
+        @media screen and (max-width: 1023px) {
+          display: none;
+        }
+      }
+
+      #arrow-2-m {
+        display: none;
+        position: absolute;
+        top: 625px;
+        left: 50%;
+        margin-left: 60px;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
       }
 
       #circle-2-2 {
         position: absolute;
         top: $top2;
         left: $left2;
+
+        @media screen and (max-width: 1023px) {
+          top: $top2m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
 
       #circle-2-3 {
         position: absolute;
         top: $top2;
         left: $left3;
+
+        @media screen and (max-width: 1023px) {
+          top: $top3m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
 
       #circle-2-4 {
         position: absolute;
         top: $top2;
         left: $left4;
+
+        @media screen and (max-width: 1023px) {
+          top: $top4m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
 
       #circle-2-5 {
         position: absolute;
         top: $top2;
         left: $left5;
+
+        @media screen and (max-width: 1023px) {
+          top: $top5m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
 
       #circle-2-6 {
         position: absolute;
         top: $top2;
         left: $left6;
+
+        @media screen and (max-width: 1023px) {
+          top: $top6m;
+          left: 50%;
+          margin-left: -120px;
+        }
       }
     }
   }
