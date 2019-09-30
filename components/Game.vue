@@ -260,7 +260,7 @@ export default {
         cursor: pointer;
 
         @media screen and (max-width: 1023px) {
-          width: 90px;
+          width: 80px;
           bottom: 10%;
           left: 5%;
 
@@ -276,9 +276,9 @@ export default {
         left: 160px;
 
         @media screen and (max-width: 1023px) {
-          width: 90px;
+          width: 80px;
           bottom: 10%;
-          left: calc(5% + 90px);
+          left: calc(5% + 80px);
 
           img {
             width: 100%;
@@ -292,9 +292,9 @@ export default {
         right: 115px;
 
         @media screen and (max-width: 1023px) {
-          width: 90px;
+          width: 80px;
           bottom: 10%;
-          left: calc(5% + 180px);
+          left: calc(5% + 160px);
 
           img {
             width: 100%;

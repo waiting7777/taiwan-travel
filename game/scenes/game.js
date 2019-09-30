@@ -176,7 +176,7 @@ export default class GameScene extends Phaser.Scene {
       repeat: -1
     });
     if (window.innerWidth < 1024) {
-      this.cat = this.add.sprite(250, 350, 'cat').setScale(0.9)
+      this.cat = this.add.sprite(250, 310, 'cat').setScale(0.9)
     } else {
       this.cat = this.add.sprite(720, 390, 'cat').setScale(0.9)
     }
@@ -194,7 +194,7 @@ export default class GameScene extends Phaser.Scene {
 
     // add dialog
     if (window.innerWidth < 1024) {
-      this.dialog = this.add.image(260, 210, 'dialog').setAlpha(0)
+      this.dialog = this.add.image(260, 170, 'dialog').setAlpha(0)
     } else {
       this.dialog = this.add.image(360, 400, 'dialog').setAlpha(0)
     }
@@ -253,7 +253,7 @@ export default class GameScene extends Phaser.Scene {
 
     // add welcome text
     if (window.innerWidth < 1024) {
-      this.welcome = this.add.text(200, 186, '', this._fontStyle)
+      this.welcome = this.add.text(200, 146, '', this._fontStyle)
     } else {
       this.welcome = this.add.text(215, 350, '', this._fontStyle)
     }
@@ -267,7 +267,7 @@ export default class GameScene extends Phaser.Scene {
 
     // add arrow down button
     if (window.innerWidth < 1024) {
-      this.arrowButton = this.add.image(200, 485, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
+      this.arrowButton = this.add.image(200, 445, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
     } else {
       this.arrowButton = this.add.image(650, 605, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
     }
@@ -410,14 +410,12 @@ export default class GameScene extends Phaser.Scene {
           }
         })
         this.mainGroup.children.entries[i].on('pointerdown', function(pointer) {
-          console.log(666)
           if (that.end) {
             return
           }
           if (!that.modalLock) {
             that.modalLock = true
             that.elementTween.play()
-            console.log(this.name)
             that.changeModalContent(this.name)
           }
         })

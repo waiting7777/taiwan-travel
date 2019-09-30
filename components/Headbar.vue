@@ -72,8 +72,8 @@ export default {
       position: absolute;
       width: 30px;
       height: 40px;
-      top: 15px;
-      right: 10px;
+      top: 7px;
+      right: 9px;
       font-size: 32px;
       display: none;
 
@@ -94,13 +94,13 @@ export default {
         border-bottom: none;
 
         img {
-          width: 200px;
+          width: 150px;
         }
       }
     }
 
     #headbar-menu-m.active {
-      height: calc(100vh - 73.56px);
+      height: calc(100vh - 61.42px);
       opacity: 1;
       pointer-events: initial;
     }
@@ -111,7 +111,7 @@ export default {
       position: absolute;
       z-index: 9999;
       width: 100%;
-      top: 73.56px;
+      top: 61.42px;
       left: 0;
       background: #fff;
       padding-top: 60px;
