@@ -46,19 +46,21 @@ export default class GameScene extends Phaser.Scene {
         text: 'TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。',
         click: false,
         x: 750, y: 100,
-        xm: 200, ym: 200
+        xm: 250, ym: 100
       },
       taoyuan: {
         title: '桃園大溪老街',
         text: '大溪老街是台灣重要的歷史街區，不僅規模大，建築外觀與牌樓立面也保留得相當完整，主要範圍為和平路、中山路、中央路三條歷史街區。平常住家主要以紅磚牌樓立面搭配紅磚屋，商家則以石材精雕歐洲風格的拱門樑柱和繁複華麗的浮雕圖案，呈現出以巴洛克風情為主的立面牌樓。',
         click: false,
-        x: 620, y: 100
+        x: 620, y: 100,
+        xm: 180, ym: 100
       },
       miaoli: {
         title: '苗栗三義木雕',
         text: '「桐花」、「木雕」、「溫泉」、「水果」、「陶瓷」及「客家菜」是苗栗觀光的6大特色，苗栗非常適合規畫2~3天的小旅行。三義木雕博物館中的大型原住民木雕享譽海內外。每年4、5月油桐花海盛開，雪白的桐花開滿山頭，吸引大批賞花客。',
         click: false,
-        x: 670, y: 210
+        x: 670, y: 210,
+        xm: 190, ym: 160
       },
       taichung: {
         title: '台中站',
@@ -69,7 +71,8 @@ export default class GameScene extends Phaser.Scene {
         title: '南投日月潭',
         text: '日月潭面積827公頃，湖面周圍約33公里，北半部形如日輪，南半部形如月鉤，故而得名。在日月潭你可以搭船遊湖，也能騎單車環湖。每年「泳渡日月潭」與「環湖馬拉松賽」也讓日月潭除了美景，更多了活力。',
         click: false,
-        x: 660, y: 280
+        x: 660, y: 280,
+        xm: 170, ym: 250
       },
       tainan: {
         title: '台南站',
@@ -80,7 +83,8 @@ export default class GameScene extends Phaser.Scene {
         title: '高雄佛光山',
         text: '高雄是充滿活力陽光的海港城市，除了愛河、壽山、西子灣、蓮池潭、旗津、左營舊城等知名景點外，位於大樹鄉的佛光山更是不可錯過的景點。最具特色的大佛城是主要地標。每年農曆春節到元宵期間，佛光山的花燈活動都吸引大批民眾。',
         click: false,
-        x: 550, y: 450
+        x: 550, y: 450,
+        xm: 130, ym: 360
       },
       pingtung: {
         title: '屏東站',
@@ -91,7 +95,8 @@ export default class GameScene extends Phaser.Scene {
         title: '台東鹿野高台',
         text: '鹿野高台擁有絕佳視野，能一覽整個高台地區與卑南溪谷底的田野景色，也是台灣東部優良的天然空域活動場地。每年6月至8月時都會有「國際熱氣球嘉年華」，正是體驗熱氣球的大好時機。除了熱氣球繫留體驗，還有熱氣球自由飛行表演、絢麗燦爛的光雕音樂會等活動。',
         click: false,
-        x: 740, y: 490
+        x: 740, y: 490,
+        xm: 250, ym: 370
       },
       hualien: {
         title: '花蓮站',
@@ -449,10 +454,11 @@ export default class GameScene extends Phaser.Scene {
     // add score point
     if (window.innerWidth < 1024) {
       this.scorePoint = this.add.text(187.5, 600, '', this._fontStyle).setAlpha(0)
+      this.scorePoint.setStyle({ font: 'bold 24px 微軟正黑體' })
     } else {
       this.scorePoint = this.add.text(500, 600, '', this._fontStyle).setAlpha(0)
+      this.scorePoint.setStyle({ font: 'bold 32px 微軟正黑體' })
     }
-    this.scorePoint.setStyle({ font: 'bold 32px 微軟正黑體' })
 
     // add reward text
     if (window.innerWidth < 1024) {

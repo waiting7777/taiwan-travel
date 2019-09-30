@@ -121,7 +121,8 @@ export default {
       pointer-events: none;
 
       @media screen and (max-width: 1023px) {
-        display: none;
+        width: 90%;
+        height: 67.5vw;
       }
 
       .text-danger {
@@ -134,6 +135,20 @@ export default {
         position: relative;
         left: -50px;
         top: 40px;
+
+        @media screen and (max-width: 1023px) {
+          top: 28px;
+          left: -31px;
+          text-align: center;
+        }
+
+        img {
+          width: 100%;
+
+          @media screen and (max-width: 1023px) {
+            width: 140px;
+          }
+        }
       }
 
       #cert-text {
@@ -141,10 +156,23 @@ export default {
         top: 164px;
         left: 61px;
         font-size: 16px;
+
+        @media screen and (max-width: 1023px) {
+          top: 39%;
+          left: 6%;
+        }
       }
 
       #cert-text.active {
         top: 130px;
+
+        @media screen and (max-width: 1023px) {
+          top: 28%;
+
+          img {
+            width: 200px;
+          }
+        }
       }
 
       #cert-name {
@@ -158,9 +186,18 @@ export default {
         left: 226px;
         top: 190px;
 
+        @media screen and (max-width: 1023px) {
+          top: 50%;
+          left: 50%;
+        }
+
         input {
           width: 100px;
           height: 24px;
+
+          @media screen and (max-width: 1023px) {
+            width: 90px;
+          }
         }
       }
 
@@ -169,8 +206,17 @@ export default {
         top: 230px;
         left: 60px;
 
+        @media screen and (max-width: 1023px) {
+          top: calc(28% + 82px);
+          left: 6%;
+        }
+
         img {
           width: 60px;
+
+          @media screen and (max-width: 1023px) {
+            width: 35px;
+          }
         }
       }
 
@@ -178,6 +224,16 @@ export default {
         position: absolute;
         bottom: 40px;
         left: 37px;
+
+        @media screen and (max-width: 1023px) {
+          width: 120px;
+          bottom: 10%;
+          left: 5%;
+
+          img {
+            width: 100%;
+          }
+        }
       }
 
       #cert-draw {
@@ -185,6 +241,16 @@ export default {
         bottom: 40px;
         right: 135px;
         cursor: pointer;
+
+        @media screen and (max-width: 1023px) {
+          width: 120px;
+          bottom: 10%;
+          left: 40%;
+
+          img {
+            width: 100%;
+          }
+        }
       }
 
       #cert-ticket {
@@ -192,18 +258,48 @@ export default {
         bottom: 40px;
         left: 25px;
         cursor: pointer;
+
+        @media screen and (max-width: 1023px) {
+          width: 90px;
+          bottom: 10%;
+          left: 5%;
+
+          img {
+            width: 100%;
+          }
+        }
       }
 
       #cert-schedule {
         position: absolute;
         bottom: 40px;
         left: 160px;
+
+        @media screen and (max-width: 1023px) {
+          width: 90px;
+          bottom: 10%;
+          left: calc(5% + 90px);
+
+          img {
+            width: 100%;
+          }
+        }
       }
 
       #cert-share {
         position: absolute;
         bottom: 40px;
         right: 115px;
+
+        @media screen and (max-width: 1023px) {
+          width: 90px;
+          bottom: 10%;
+          left: calc(5% + 180px);
+
+          img {
+            width: 100%;
+          }
+        }
       }
     }
 

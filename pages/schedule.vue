@@ -30,6 +30,7 @@
       </div>
     </div>
     <div id="schedule">
+      <div id="title-m"><img src="/images/m/title.png" /></div>
       <div id="circle-1-1" class="circle-static circle-o">
         喔熊<br/>組長
       </div>
@@ -339,6 +340,15 @@ export default {
 
       #bg {
         width: 100%;
+      }
+
+      #title-m {
+        text-align: center;
+        display: none;
+
+        @media screen and (max-width: 1023px) {
+          display: block;
+        }
       }
 
       #oh-bear {
