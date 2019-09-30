@@ -40,8 +40,7 @@ export default {
   */
   modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
-    'nuxt-fontawesome'
+    'bootstrap-vue/nuxt'
   ],
   /*
   ** Build configuration

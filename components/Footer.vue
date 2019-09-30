@@ -37,6 +37,10 @@ export default {
     align-items: center;
     margin-top: 7px;
 
+    #tw {
+      width: 100%;
+    }
+
     #text {
       font-size: 12px;
     }

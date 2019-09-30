@@ -103,6 +103,10 @@ export default {
     background-repeat: no-repeat;
     position: relative;
 
+    #quest-contain {
+      font-size: 20px;
+    }
+
     #cert.active {
       opacity: 1;
       pointer-events: initial;

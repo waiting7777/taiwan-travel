@@ -21,6 +21,7 @@ export default class GameScene extends Phaser.Scene {
       }
     }
     
+    this.questContain = null;
     this.end = false;
     this.mobileTipOpen = false;
     this.rewardArray = [];
@@ -434,7 +435,7 @@ export default class GameScene extends Phaser.Scene {
       repeat: -1
     });
     if (window.innerWidth < 1024) {
-      this.score = this.add.sprite(1200, 200, 'score').setScale(0.7)
+      this.score = this.add.sprite(25, 45, 'score').setScale(0)
     } else {
       this.score = this.add.sprite(1100, 460, 'score')
     }
@@ -443,7 +444,7 @@ export default class GameScene extends Phaser.Scene {
 
     // add tip text
     if (window.innerWidth < 1024) {
-      this.tipText =  this.add.text(1135, 192, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
+      this.tipText =  this.add.text(25, 45, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
     } else {
       this.tipText =  this.add.text(1000, 450, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
     }
@@ -506,6 +507,19 @@ export default class GameScene extends Phaser.Scene {
     this.modalContent['taitung'].num = shuffleScore[5]
 
     if (window.innerWidth < 1024) {
+      var questContain = document.createElement('div');
+      questContain.id = 'quest-contain'
+      var quest = document.createElement('i')
+      quest.classList.add('fas')
+      quest.classList.add('fa-question-circle')
+      questContain.appendChild(quest)
+      this.questContain = this.add.dom(25, 45, questContain).setAlpha(0)
+      questContain.addEventListener('click', (e) => {
+        if (!this.mobileTipOpen) {
+          this.mobileTipOpen = true;
+          this.mobileTipPlay()
+        }
+      });
       this.element = this.add.dom(window.innerWidth * 0.1 / 2, 50, div).setOrigin(0).setScale(0, 1)
     } else {
       this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
@@ -603,8 +617,9 @@ export default class GameScene extends Phaser.Scene {
       this.mainGroup.toggleVisible()
       this.pointGroup.toggleVisible()
       this.bg.setAlpha(1)
+      this.questContain.setAlpha(1)
       if (window.innerWidth < 1024) {
-
+        this.mobileTipPlay();
       } else {
         this.tweens.add({
           targets: this.ohBear,
@@ -642,6 +657,38 @@ export default class GameScene extends Phaser.Scene {
       this.modalImage.src = `/images/${name}.jpg`
       this.modalText.innerText = this.modalContent[name].text
     }
+  }
+
+  mobileTipPlay() {
+    this.tweens.add({
+      targets: this.score,
+      duration: 500,
+      x: 180,
+      y: 180,
+      scale: 0.8,
+      pause: false,
+      onCompleteScope: this,
+      onComplete: function() {
+        this.mobileTipOpen = false;
+        this.tweens.add({
+          targets: [this.score, this.tipText],
+          duration: 500,
+          x: 25,
+          y: 45,
+          scale: 0,
+          pause: false,
+          delay: 2000
+        })
+      }
+    })
+    this.tweens.add({
+      targets: this.tipText,
+      duration: 500,
+      x: 115,
+      y: 175,
+      scale: 1,
+      pause: false
+    })
   }
 
   nextPage() {
