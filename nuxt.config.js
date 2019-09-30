@@ -9,6 +9,10 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { property: 'og:url', content: 'http://taiwanfun.worldjournal.com/' },
+      { property: 'title', content: '台灣好好玩│景點尋寶網路活動 參加抽大獎' },
+      { property: 'og:image', content: 'http://taiwanfun.worldjournal.com/images/fb.jpg' },
+      { property: 'og:description', content: '台灣怎麼玩最酷？該吃哪些美食？讓白貓帥帥和喔熊組長帶你探險去！' },
       { hid: 'title', name: 'title', content: '台灣好好玩│景點尋寶網路活動 參加抽大獎' },
       { hid: 'url', name: 'url', content: 'http://taiwanfun.worldjournal.com/' },
       { hid: 'image', name: 'image', content: 'http://taiwanfun.worldjournal.com/images/fb.jpg' },
@@ -32,6 +36,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/ga.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

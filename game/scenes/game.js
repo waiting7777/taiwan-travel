@@ -119,6 +119,7 @@ export default class GameScene extends Phaser.Scene {
       this.load.image('bg-0', '/images/m/bg-0.png')
       this.load.image('dialog', '/images/m/dialog.png')
       this.load.image('arrow-down', '/images/m/start.png')
+      this.load.image('question', '/images/m/question.jpg')
 
       this.load.spritesheet('cat', '/images/m/cat.png', { frameWidth: 333, frameHeight: 243 });
     } else {
@@ -481,6 +482,15 @@ export default class GameScene extends Phaser.Scene {
     }
     this.mainGroup.add(this.rewardText)
 
+    // add question
+    if (window.innerWidth < 1024) {
+      this.questContain = this.add.image(25, 45, 'question').setInteractive()
+      this.mainGroup.add(this.questContain)
+      this.questContain.on('pointerdown', () => {
+        this.mobileTipPlay()
+      });
+    }
+
     this.mainGroup.toggleVisible()
     this.pointGroup.toggleVisible()
 
@@ -512,19 +522,6 @@ export default class GameScene extends Phaser.Scene {
     this.modalContent['taitung'].num = shuffleScore[5]
 
     if (window.innerWidth < 1024) {
-      var questContain = document.createElement('div');
-      questContain.id = 'quest-contain'
-      var quest = document.createElement('i')
-      quest.classList.add('fas')
-      quest.classList.add('fa-question-circle')
-      questContain.appendChild(quest)
-      this.questContain = this.add.dom(25, 45, questContain).setAlpha(0)
-      questContain.addEventListener('click', (e) => {
-        if (!this.mobileTipOpen) {
-          this.mobileTipOpen = true;
-          this.mobileTipPlay()
-        }
-      });
       this.element = this.add.dom(window.innerWidth * 0.1 / 2, 50, div).setOrigin(0).setScale(0, 1)
     } else {
       this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
@@ -611,7 +608,6 @@ export default class GameScene extends Phaser.Scene {
           this.tipText.setText('恭喜完成!\n領證書囉!')
           this.tipText.setX(1025)
           this.tipText.setY(450)
-          console.log(this.rewardArray)
           window.dispatchEvent(new CustomEvent('cert', { detail: { reward: this.rewardArray }}))
         }, 600)
       }
@@ -624,7 +620,6 @@ export default class GameScene extends Phaser.Scene {
       this.bg.setAlpha(1)
       if (window.innerWidth < 1024) {
         this.mobileTipPlay();
-        this.questContain.setAlpha(1)
       } else {
         this.tweens.add({
           targets: this.ohBear,
