@@ -120,6 +120,10 @@ export default {
       transition: all 0.7s ease;
       pointer-events: none;
 
+      @media screen and (max-width: 1023px) {
+        display: none;
+      }
+
       .text-danger {
         font-size: 14px;
       }
@@ -216,6 +220,11 @@ export default {
     display: flex;
     flex-direction: column;
 
+    @media screen and (max-width: 1023px) {
+      width: 90%;
+      left: 0;
+    }
+
     #modal-head {
       font-size: 18px;
       font-weight: bold;
@@ -224,10 +233,18 @@ export default {
     #modal-image {
       margin: 10px auto;
       display: block;
+
+      @media screen and (max-width: 1023px) {
+        max-width: 300px;
+      }
     }
 
     #modal-text {
       font-size: 16px;
+
+      @media screen and (max-width: 1023px) {
+        font-size: 14px;
+      }
     }
 
     #modal-button {
@@ -242,6 +259,10 @@ export default {
       background: #434343;
       border-radius: 10px;
       cursor: pointer;
+
+      @media screen and (max-width: 1023px) {
+        margin-top: 10px;
+      }
     }
 
     #modal-button:hover {

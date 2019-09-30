@@ -27,7 +27,7 @@
           抽獎辦法
         </nuxt-link>
       </div>
-      <div class="headbar-button-m">分享遊戲</div>
+      <div class="headbar-button-m">分享遊戲 <img src="/images/fb.png" style="position:absolute"/></div>
       <img id="menu-bar-cat" src="/images/m/menu-bar-cat.png" />
     </div>
     <div id="headbar-button-contain">
@@ -46,7 +46,7 @@
           抽獎辦法
         </nuxt-link>
       </div>
-      <div class="headbar-button">分享遊戲</div>
+      <div class="headbar-button">分享遊戲 <img src="/images/fb.png" /></div>
     </div>
   </div>
 </template>
@@ -75,6 +75,11 @@ export default {
       top: 15px;
       right: 10px;
       font-size: 32px;
+      display: none;
+
+      @media screen and (max-width: 1023px) {
+        display: block;
+      }
     }
 
     #headbar-logo {
@@ -97,6 +102,7 @@ export default {
     #headbar-menu-m.active {
       height: calc(100vh - 73.56px);
       opacity: 1;
+      pointer-events: initial;
     }
 
     #headbar-menu-m {
@@ -110,6 +116,7 @@ export default {
       background: #fff;
       padding-top: 60px;
       transition: all 0.7s ease;
+      pointer-events: none;
 
       #menu-bar-cat {
         position: absolute;

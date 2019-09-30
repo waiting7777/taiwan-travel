@@ -74,7 +74,7 @@
       <img id="leaf-2" src="/images/m/leaf-2.png" />
       <img id="leaf-2-2" src="/images/m/leaf-2.png" />
       <img id="leaf-3" src="/images/m/leaf-3.png" />
-      <img id="cat" :class="{ active: start }" src="/images/m/cat.png" />
+      <img id="cat" :class="{ active: start }" src="/images/m/cat2.png" />
       <img id="oh-bear" :class="{ active: start }" src="/images/m/oh-bear.png" />
     </div>
     <Footer />

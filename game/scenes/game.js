@@ -7,11 +7,20 @@ export default class GameScene extends Phaser.Scene {
   }
 
   init() {
-    this._fontStyle = {
-      color: '#000',
-      font: 'bold 24px 微軟正黑體',
-      lineSpacing: 8
+    if (window.innerWidth < 1024) {
+      this._fontStyle = {
+        color: '#000',
+        font: 'bold 16px 微軟正黑體',
+        lineSpacing: 8
+      }
+    } else {
+      this._fontStyle = {
+        color: '#000',
+        font: 'bold 24px 微軟正黑體',
+        lineSpacing: 8
+      }
     }
+    
     this.end = false;
     this.rewardArray = [];
     this.rewardCounter = 0;
@@ -22,8 +31,13 @@ export default class GameScene extends Phaser.Scene {
     this.scoreTable = [13, 14, 16, 18, 19, 20]
     this.scoreNumber = 0;
     this.currentModal = ''
-    this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分活動'
-    this.welcomeText2 = '在台灣地圖完成11景點 尋寶，就能參加 「紐約-台北來回機票」 抽獎！點下方「開始」！'
+    if (window.innerWidth < 1024) {
+      this.welcomeText = '參加台灣好好玩\n尋寶活動抽機票'
+      this.welcomeText2 = '點下方「開始」\n立刻尋寶去！'
+    } else {
+      this.welcomeText = 'Hi歡迎來到 台灣好好玩 景點尋寶積分活動'
+      this.welcomeText2 = '在台灣地圖完成11景點 尋寶，就能參加 「紐約-台北來回機票」 抽獎！點下方「開始」！'
+    }
     this.tipChangeFlag = false;
     this.modalLock = false;
     this.modalContent = {
@@ -31,7 +45,8 @@ export default class GameScene extends Phaser.Scene {
         title: '台北 101',
         text: 'TAIPEI 101座落於台北最精華地段，除了是台灣首都地標外，每年跨年施放的煙火更成為亞洲代表之一。標高382公尺的89樓觀景台，除擁有全方位絕佳的觀景視野外，並提供其他多項設施，同時更可看到世界最大、最重、也是唯一外露供參觀的風阻尼器。',
         click: false,
-        x: 750, y: 100
+        x: 750, y: 100,
+        xm: 200, ym: 200
       },
       taoyuan: {
         title: '桃園大溪老街',
@@ -93,9 +108,21 @@ export default class GameScene extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.image('bg-0', '/images/bg-0.png')
+    if (window.innerWidth < 1024) {
+      this.load.image('bg-0', '/images/m/bg-0.png')
+      this.load.image('dialog', '/images/m/dialog.png')
+      this.load.image('arrow-down', '/images/m/start.png')
+
+      this.load.spritesheet('cat', '/images/m/cat.png', { frameWidth: 333, frameHeight: 243 });
+    } else {
+      this.load.image('bg-0', '/images/bg-0.png')
+      this.load.image('dialog', '/images/dialog.png')
+      this.load.image('arrow-down', '/images/start.png')
+
+      this.load.spritesheet('cat', '/images/cat.png', { frameWidth: 579, frameHeight: 433 });
+    }
+    
     this.load.image('bg', '/images/bg.png');
-    this.load.image('arrow-down', '/images/start.png')
     this.load.image('taiwan', '/images/taiwan.png')
     this.load.image('oh-bear', '/images/oh-bear.png')
     this.load.image('taipei', '/images/taipei.png')
@@ -111,7 +138,6 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('hualien', '/images/hualien.png')
     this.load.image('point', '/images/point-gray.png')
     this.load.image('point-gray', '/images/point.png')
-    this.load.image('dialog', '/images/dialog.png')
     this.load.image('dialog-little', '/images/dialog-little.png')
     this.load.image('cat-hand', '/images/cat-hand.png')
 
@@ -127,7 +153,6 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('ilan-reward-2', '/images/ilan-reward-2.png')
 
     this.load.spritesheet('score', '/images/score.png', { frameWidth: 287, frameHeight: 394 });
-    this.load.spritesheet('cat', '/images/cat.png', { frameWidth: 579, frameHeight: 433 });
     this.load.spritesheet('cat2', '/images/cat2.png', { frameWidth: 320, frameHeight: 300 })
   }
   
@@ -145,7 +170,11 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 3,
       repeat: -1
     });
-    this.cat = this.add.sprite(720, 390, 'cat').setScale(0.9)
+    if (window.innerWidth < 1024) {
+      this.cat = this.add.sprite(250, 350, 'cat').setScale(0.9)
+    } else {
+      this.cat = this.add.sprite(720, 390, 'cat').setScale(0.9)
+    }
     this.cat.anims.play('catWalk')
 
     // add cat2
@@ -159,7 +188,11 @@ export default class GameScene extends Phaser.Scene {
     this.cat2.anims.play('catWalk2')
 
     // add dialog
-    this.dialog = this.add.image(360, 400, 'dialog').setAlpha(0)
+    if (window.innerWidth < 1024) {
+      this.dialog = this.add.image(260, 210, 'dialog').setAlpha(0)
+    } else {
+      this.dialog = this.add.image(360, 400, 'dialog').setAlpha(0)
+    }
     this.firstGroup.add(this.dialog)
     this.tweens.add({
       targets: this.dialog,
@@ -214,7 +247,12 @@ export default class GameScene extends Phaser.Scene {
     this.firstGroup.add(this.dialogLittleText)
 
     // add welcome text
-    this.welcome = this.add.text(215, 350, '', this._fontStyle)
+    if (window.innerWidth < 1024) {
+      this.welcome = this.add.text(200, 186, '', this._fontStyle)
+    } else {
+      this.welcome = this.add.text(215, 350, '', this._fontStyle)
+    }
+    
     this.welcome.setWordWrapWidth(150)
     this.firstGroup.add(this.welcome)
     
@@ -223,7 +261,11 @@ export default class GameScene extends Phaser.Scene {
     this.firstGroup.add(this.catHand)
 
     // add arrow down button
-    this.arrowButton = this.add.image(650, 605, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
+    if (window.innerWidth < 1024) {
+      this.arrowButton = this.add.image(200, 485, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
+    } else {
+      this.arrowButton = this.add.image(650, 605, 'arrow-down').setInteractive({ useHandCursor: true  }).setOrigin(0.5)
+    }
     this.firstGroup.add(this.arrowButton);
     // event listener for the background
     this.arrowButton.on('pointerdown', this.nextPage, this);
@@ -238,29 +280,55 @@ export default class GameScene extends Phaser.Scene {
     this.pointGroup = this.add.group()
 
     // add taiwan
-    this.taiwan = this.add.image(650, 350, 'taiwan').setName('taiwan')
-    this.taipei = this.add.image(732, 85, 'taipei').setName('taipei')
-    this.taipeiPoint = this.add.image(760, 75, 'point').setName('taipei')
-    this.taoyuan = this.add.image(595, 90, 'taoyuan').setName('taoyuan')
-    this.taoyuanPoint = this.add.image(670, 92, 'point').setName('taoyuan')
-    this.miaoli = this.add.image(700, 200, 'miaoli').setName('miaoli')
-    this.miaoliPoint = this.add.image(640, 165, 'point').setName('miaoli')
-    this.taichung = this.add.image(545, 200, 'taichung').setName('taichung')
-    this.taichungPoint = this.add.image(595, 205, 'point').setName('taichung')
-    this.nantou = this.add.image(650, 290, 'nantou').setName('nantou')
-    this.nantouPoint = this.add.image(640, 245, 'point').setName('nantou')
-    this.tainan = this.add.image(440, 370, 'tainan').setName('tainan')
-    this.tainanPoint = this.add.image(510, 405, 'point').setName('tainan')
-    this.kaohsiung = this.add.image(590, 430, 'kaohsiung').setName('kaohsiung')
-    this.kaohsiungPoint = this.add.image(505, 465, 'point').setName('kaohsiung')
-    this.pingtung = this.add.image(505, 560, 'pingtung').setName('pingtung')
-    this.pingtungPoint = this.add.image(575, 540, 'point').setName('pingtung')
-    this.ilan = this.add.image(905, 155, 'ilan').setName('ilan')
-    this.ilanPoint = this.add.image(825, 115, 'point').setName('ilan')
-    this.hualien = this.add.image(800, 290, 'hualien').setName('hualien')
-    this.hualienPoint = this.add.image(765, 235, 'point').setName('hualien')
-    this.taitung = this.add.image(760, 490, 'taitung').setName('taitung')
-    this.taitungPoint = this.add.image(675, 465, 'point').setName('taitung')
+    if (window.innerWidth < 1024) {
+      this.taiwan = this.add.image(190, 300, 'taiwan').setName('taiwan').setScale(0.7)
+      this.taipei = this.add.image(250, 100, 'taipei').setName('taipei').setScale(0.7)
+      this.taipeiPoint = this.add.image(270, 125, 'point').setName('taipei').setScale(0.7)
+      this.taoyuan = this.add.image(140, 120, 'taoyuan').setName('taoyuan').setScale(0.7)
+      this.taoyuanPoint = this.add.image(200, 120, 'point').setName('taoyuan').setScale(0.7)
+      this.miaoli = this.add.image(215, 190, 'miaoli').setName('miaoli').setScale(0.7)
+      this.miaoliPoint = this.add.image(175, 165, 'point').setName('miaoli').setScale(0.7)
+      this.taichung = this.add.image(90, 210, 'taichung').setName('taichung').setScale(0.7)
+      this.taichungPoint = this.add.image(140, 205, 'point').setName('taichung').setScale(0.7)
+      this.nantou = this.add.image(180, 270, 'nantou').setName('nantou').setScale(0.7)
+      this.nantouPoint = this.add.image(170, 250, 'point').setName('nantou').setScale(0.7)
+      this.tainan = this.add.image(50, 320, 'tainan').setName('tainan').setScale(0.7)
+      this.tainanPoint = this.add.image(95, 325, 'point').setName('tainan').setScale(0.7)
+      this.kaohsiung = this.add.image(140, 370, 'kaohsiung').setName('kaohsiung').setScale(0.7)
+      this.kaohsiungPoint = this.add.image(90, 385, 'point').setName('kaohsiung').setScale(0.7)
+      this.pingtung = this.add.image(90, 470, 'pingtung').setName('pingtung').setScale(0.7)
+      this.pingtungPoint = this.add.image(130, 430, 'point').setName('pingtung').setScale(0.7)
+      this.ilan = this.add.image(320, 190, 'ilan').setName('ilan').setScale(0.7)
+      this.ilanPoint = this.add.image(310, 150, 'point').setName('ilan').setScale(0.7)
+      this.hualien = this.add.image(300, 290, 'hualien').setName('hualien').setScale(0.7)
+      this.hualienPoint = this.add.image(260, 250, 'point').setName('hualien').setScale(0.7)
+      this.taitung = this.add.image(275, 395, 'taitung').setName('taitung').setScale(0.7)
+      this.taitungPoint = this.add.image(210, 380, 'point').setName('taitung').setScale(0.7)
+    } else {
+      this.taiwan = this.add.image(650, 350, 'taiwan').setName('taiwan')
+      this.taipei = this.add.image(732, 85, 'taipei').setName('taipei')
+      this.taipeiPoint = this.add.image(760, 75, 'point').setName('taipei')
+      this.taoyuan = this.add.image(595, 90, 'taoyuan').setName('taoyuan')
+      this.taoyuanPoint = this.add.image(670, 92, 'point').setName('taoyuan')
+      this.miaoli = this.add.image(700, 200, 'miaoli').setName('miaoli')
+      this.miaoliPoint = this.add.image(640, 165, 'point').setName('miaoli')
+      this.taichung = this.add.image(545, 200, 'taichung').setName('taichung')
+      this.taichungPoint = this.add.image(595, 205, 'point').setName('taichung')
+      this.nantou = this.add.image(650, 290, 'nantou').setName('nantou')
+      this.nantouPoint = this.add.image(640, 245, 'point').setName('nantou')
+      this.tainan = this.add.image(440, 370, 'tainan').setName('tainan')
+      this.tainanPoint = this.add.image(510, 405, 'point').setName('tainan')
+      this.kaohsiung = this.add.image(590, 430, 'kaohsiung').setName('kaohsiung')
+      this.kaohsiungPoint = this.add.image(505, 465, 'point').setName('kaohsiung')
+      this.pingtung = this.add.image(505, 560, 'pingtung').setName('pingtung')
+      this.pingtungPoint = this.add.image(575, 540, 'point').setName('pingtung')
+      this.ilan = this.add.image(905, 155, 'ilan').setName('ilan')
+      this.ilanPoint = this.add.image(825, 115, 'point').setName('ilan')
+      this.hualien = this.add.image(800, 290, 'hualien').setName('hualien')
+      this.hualienPoint = this.add.image(765, 235, 'point').setName('hualien')
+      this.taitung = this.add.image(760, 490, 'taitung').setName('taitung')
+      this.taitungPoint = this.add.image(675, 465, 'point').setName('taitung')
+    }
 
     this.mainGroup.addMultiple([this.taiwan, this.taipei, this.taoyuan, this.miaoli, this.taichung, this.nantou,
                                 this.tainan, this.kaohsiung, this.pingtung, this.ilan, this.hualien, this.taitung])
@@ -278,7 +346,7 @@ export default class GameScene extends Phaser.Scene {
         if (that.end) {
           return
         }
-        if (!that.modalLock) {
+        if (!that.modalLock && window.innerWidth >= 1024) {
           this.setScale(1.2)
           let name = this.name
           let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
@@ -289,10 +357,12 @@ export default class GameScene extends Phaser.Scene {
         if (that.end) {
           return
         }
-        this.setScale(1)
-        let name = this.name
-        let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
-        target.setScale(1)
+        if (window.innerWidth >= 1024) {
+          this.setScale(1)
+          let name = this.name
+          let target = _.find(that.mainGroup.children.entries, function(o){ return o.name === name})
+          target.setScale(1)
+        }
       })
       this.pointGroup.children.entries[i].on('pointerdown', function(pointer) {
         if (that.end) {
@@ -316,7 +386,7 @@ export default class GameScene extends Phaser.Scene {
           if (that.end) {
             return
           }
-          if (!that.modalLock) {
+          if (!that.modalLock && window.innerWidth >= 1024) {
             this.setScale(1.2)
             let name = this.name
             let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
@@ -327,18 +397,22 @@ export default class GameScene extends Phaser.Scene {
           if (that.end) {
             return
           }
-          this.setScale(1)
-          let name = this.name
-          let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
-          target.setScale(1)
+          if (window.innerWidth >= 1024) {
+            this.setScale(1)
+            let name = this.name
+            let target = _.find(that.pointGroup.children.entries, function(o){ return o.name === name})
+            target.setScale(1)
+          }
         })
         this.mainGroup.children.entries[i].on('pointerdown', function(pointer) {
+          console.log(666)
           if (that.end) {
             return
           }
           if (!that.modalLock) {
             that.modalLock = true
             that.elementTween.play()
+            console.log(this.name)
             that.changeModalContent(this.name)
           }
         })
@@ -365,15 +439,27 @@ export default class GameScene extends Phaser.Scene {
     this.mainGroup.add(this.tipText)
 
     // add score text
-    this.scoreText = this.add.text(1100, 20, '分數 0/100', this._fontStyle)
+    if (window.innerWidth < 1024) {
+      this.scoreText = this.add.text(270, 10, '分數 0/100', this._fontStyle)
+    } else {
+      this.scoreText = this.add.text(1100, 20, '分數 0/100', this._fontStyle)
+    }
     this.mainGroup.add(this.scoreText)
 
     // add score point
-    this.scorePoint = this.add.text(500, 600, '', this._fontStyle).setAlpha(0)
+    if (window.innerWidth < 1024) {
+      this.scorePoint = this.add.text(187.5, 600, '', this._fontStyle).setAlpha(0)
+    } else {
+      this.scorePoint = this.add.text(500, 600, '', this._fontStyle).setAlpha(0)
+    }
     this.scorePoint.setStyle({ font: 'bold 32px 微軟正黑體' })
 
     // add reward text
-    this.rewardText = this.add.text(50, 20, '獎勵 ', this._fontStyle)
+    if (window.innerWidth < 1024) {
+      this.rewardText = this.add.text(10, 10, '獎勵 ', this._fontStyle)
+    } else {
+      this.rewardText = this.add.text(50, 20, '獎勵 ', this._fontStyle)
+    }
     this.mainGroup.add(this.rewardText)
 
     this.mainGroup.toggleVisible()
@@ -406,7 +492,11 @@ export default class GameScene extends Phaser.Scene {
     this.modalContent['kaohsiung'].num = shuffleScore[4]
     this.modalContent['taitung'].num = shuffleScore[5]
 
-    this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
+    if (window.innerWidth < 1024) {
+      this.element = this.add.dom(window.innerWidth * 0.1 / 2, 50, div).setOrigin(0).setScale(0, 1)
+    } else {
+      this.element = this.add.dom(375, 50, div).setOrigin(0).setScale(0, 1)
+    }
     this.element.setAlpha(0)
 
     this.elementTween = this.tweens.add({
@@ -422,16 +512,29 @@ export default class GameScene extends Phaser.Scene {
       if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {
         if (!this.modalContent[name].click) {
           this.modalContent[name].click = true
-          this.modalContent[name].target = this.add.image(580, 150, `${this.currentModal}-reward-${this.modalContent[name].num}`)
-          this.tweens.add({
-            targets: this.modalContent[name].target,
-            duration: 800,
-            x: this.rewardPosition.x + 60 * this.rewardCounter,
-            y: this.rewardPosition.y,
-            scale: 0.5,
-            delay: 300,
-            pause: false,
-          })
+          if (window.innerWidth < 1024) {
+            this.modalContent[name].target = this.add.image(200, 150, `${this.currentModal}-reward-${this.modalContent[name].num}`)
+            this.tweens.add({
+              targets: this.modalContent[name].target,
+              duration: 800,
+              x: 60 + 35 * this.rewardCounter,
+              y: 20,
+              scale: 0.3,
+              delay: 300,
+              pause: false,
+            })
+          } else {
+            this.modalContent[name].target = this.add.image(580, 150, `${this.currentModal}-reward-${this.modalContent[name].num}`)
+            this.tweens.add({
+              targets: this.modalContent[name].target,
+              duration: 800,
+              x: this.rewardPosition.x + 60 * this.rewardCounter,
+              y: this.rewardPosition.y,
+              scale: 0.5,
+              delay: 300,
+              pause: false,
+            })
+          }
           this.rewardCounter++;
         }
       } else {
@@ -445,8 +548,13 @@ export default class GameScene extends Phaser.Scene {
           this.scoreNumber += this.modalContent[name].num
           this.scorePoint.setAlpha(1)
           this.scorePoint.setText(`+${this.modalContent[name].num}`)
-          this.scorePoint.setX(this.modalContent[name].x)
-          this.scorePoint.setY(this.modalContent[name].y)
+          if (window.innerWidth < 1024) {
+            this.scorePoint.setX(this.modalContent[name].xm)
+            this.scorePoint.setY(this.modalContent[name].ym)
+          } else {
+            this.scorePoint.setX(this.modalContent[name].x)
+            this.scorePoint.setY(this.modalContent[name].y)
+          }
           this.tweens.add({
             targets: this.scorePoint,
             duration: 1200,
@@ -482,13 +590,17 @@ export default class GameScene extends Phaser.Scene {
       this.mainGroup.toggleVisible()
       this.pointGroup.toggleVisible()
       this.bg.setAlpha(1)
-      this.tweens.add({
-        targets: this.ohBear,
-        duration: 800,
-        x: 180,
-        angle: 0,
-        pause: false,
-      })
+      if (window.innerWidth < 1024) {
+
+      } else {
+        this.tweens.add({
+          targets: this.ohBear,
+          duration: 800,
+          x: 180,
+          angle: 0,
+          pause: false,
+        })
+      }
       camera.fadeIn(800, 149, 188, 194)
     }, this)
 
