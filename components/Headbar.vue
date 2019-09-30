@@ -27,7 +27,11 @@
           抽獎辦法
         </nuxt-link>
       </div>
-      <div class="headbar-button-m">分享遊戲 <img src="/images/fb.png" style="position:absolute"/></div>
+      <div class="headbar-button-m">
+        <a href="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=http://taiwanfun.worldjournal.com', 'taiwanfun', config='height=500,width=500');">
+          分享遊戲 <img src="/images/fb.png" style="position:absolute"/>
+        </a>  
+      </div>
       <img id="menu-bar-cat" src="/images/m/menu-bar-cat.png" />
     </div>
     <div id="headbar-button-contain">
@@ -46,7 +50,11 @@
           抽獎辦法
         </nuxt-link>
       </div>
-      <div class="headbar-button">分享遊戲 <img src="/images/fb.png" /></div>
+      <div class="headbar-button">
+        <a href="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=http://taiwanfun.worldjournal.com', 'taiwanfun', config='height=500,width=500');">
+          分享遊戲 <img src="/images/fb.png" />
+        </a>
+      </div>
     </div>
   </div>
 </template>

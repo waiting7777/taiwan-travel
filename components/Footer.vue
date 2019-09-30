@@ -4,7 +4,7 @@
       <img id="wj" src="/images/wj.png" />
     </a>
     <a href="https://www.taiwan.net.tw/" target="_blank">
-      <img id="tw" src="/images/tw.png" />
+      <img id="tw" src="/images/tw.jpg" />
     </a>
     <div id="text">
       授權商：聯合數位文創股份有限公司<br/>

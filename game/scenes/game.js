@@ -617,9 +617,9 @@ export default class GameScene extends Phaser.Scene {
       this.mainGroup.toggleVisible()
       this.pointGroup.toggleVisible()
       this.bg.setAlpha(1)
-      this.questContain.setAlpha(1)
       if (window.innerWidth < 1024) {
         this.mobileTipPlay();
+        this.questContain.setAlpha(1)
       } else {
         this.tweens.add({
           targets: this.ohBear,
