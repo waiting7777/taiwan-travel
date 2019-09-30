@@ -22,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
     }
     
     this.end = false;
+    this.mobileTipOpen = false;
     this.rewardArray = [];
     this.rewardCounter = 0;
     this.rewardPosition = {
@@ -286,29 +287,29 @@ export default class GameScene extends Phaser.Scene {
 
     // add taiwan
     if (window.innerWidth < 1024) {
-      this.taiwan = this.add.image(190, 300, 'taiwan').setName('taiwan').setScale(0.7)
-      this.taipei = this.add.image(250, 100, 'taipei').setName('taipei').setScale(0.7)
-      this.taipeiPoint = this.add.image(270, 125, 'point').setName('taipei').setScale(0.7)
-      this.taoyuan = this.add.image(140, 120, 'taoyuan').setName('taoyuan').setScale(0.7)
-      this.taoyuanPoint = this.add.image(200, 120, 'point').setName('taoyuan').setScale(0.7)
-      this.miaoli = this.add.image(215, 190, 'miaoli').setName('miaoli').setScale(0.7)
-      this.miaoliPoint = this.add.image(175, 165, 'point').setName('miaoli').setScale(0.7)
-      this.taichung = this.add.image(90, 210, 'taichung').setName('taichung').setScale(0.7)
-      this.taichungPoint = this.add.image(140, 205, 'point').setName('taichung').setScale(0.7)
-      this.nantou = this.add.image(180, 270, 'nantou').setName('nantou').setScale(0.7)
-      this.nantouPoint = this.add.image(170, 250, 'point').setName('nantou').setScale(0.7)
-      this.tainan = this.add.image(50, 320, 'tainan').setName('tainan').setScale(0.7)
-      this.tainanPoint = this.add.image(95, 325, 'point').setName('tainan').setScale(0.7)
-      this.kaohsiung = this.add.image(140, 370, 'kaohsiung').setName('kaohsiung').setScale(0.7)
-      this.kaohsiungPoint = this.add.image(90, 385, 'point').setName('kaohsiung').setScale(0.7)
-      this.pingtung = this.add.image(90, 470, 'pingtung').setName('pingtung').setScale(0.7)
-      this.pingtungPoint = this.add.image(130, 430, 'point').setName('pingtung').setScale(0.7)
-      this.ilan = this.add.image(320, 190, 'ilan').setName('ilan').setScale(0.7)
-      this.ilanPoint = this.add.image(310, 150, 'point').setName('ilan').setScale(0.7)
-      this.hualien = this.add.image(300, 290, 'hualien').setName('hualien').setScale(0.7)
-      this.hualienPoint = this.add.image(260, 250, 'point').setName('hualien').setScale(0.7)
-      this.taitung = this.add.image(275, 395, 'taitung').setName('taitung').setScale(0.7)
-      this.taitungPoint = this.add.image(210, 380, 'point').setName('taitung').setScale(0.7)
+      this.taiwan = this.add.image(190, 280, 'taiwan').setName('taiwan').setScale(0.7)
+      this.taipei = this.add.image(250, 80, 'taipei').setName('taipei').setScale(0.7)
+      this.taipeiPoint = this.add.image(270, 105, 'point').setName('taipei').setScale(0.7)
+      this.taoyuan = this.add.image(140, 100, 'taoyuan').setName('taoyuan').setScale(0.7)
+      this.taoyuanPoint = this.add.image(200, 100, 'point').setName('taoyuan').setScale(0.7)
+      this.miaoli = this.add.image(215, 170, 'miaoli').setName('miaoli').setScale(0.7)
+      this.miaoliPoint = this.add.image(175, 145, 'point').setName('miaoli').setScale(0.7)
+      this.taichung = this.add.image(90, 190, 'taichung').setName('taichung').setScale(0.7)
+      this.taichungPoint = this.add.image(140, 185, 'point').setName('taichung').setScale(0.7)
+      this.nantou = this.add.image(180, 250, 'nantou').setName('nantou').setScale(0.7)
+      this.nantouPoint = this.add.image(170, 230, 'point').setName('nantou').setScale(0.7)
+      this.tainan = this.add.image(50, 300, 'tainan').setName('tainan').setScale(0.7)
+      this.tainanPoint = this.add.image(95, 305, 'point').setName('tainan').setScale(0.7)
+      this.kaohsiung = this.add.image(140, 350, 'kaohsiung').setName('kaohsiung').setScale(0.7)
+      this.kaohsiungPoint = this.add.image(90, 365, 'point').setName('kaohsiung').setScale(0.7)
+      this.pingtung = this.add.image(90, 450, 'pingtung').setName('pingtung').setScale(0.7)
+      this.pingtungPoint = this.add.image(130, 410, 'point').setName('pingtung').setScale(0.7)
+      this.ilan = this.add.image(320, 170, 'ilan').setName('ilan').setScale(0.7)
+      this.ilanPoint = this.add.image(310, 130, 'point').setName('ilan').setScale(0.7)
+      this.hualien = this.add.image(300, 270, 'hualien').setName('hualien').setScale(0.7)
+      this.hualienPoint = this.add.image(260, 230, 'point').setName('hualien').setScale(0.7)
+      this.taitung = this.add.image(275, 375, 'taitung').setName('taitung').setScale(0.7)
+      this.taitungPoint = this.add.image(210, 360, 'point').setName('taitung').setScale(0.7)
     } else {
       this.taiwan = this.add.image(650, 350, 'taiwan').setName('taiwan')
       this.taipei = this.add.image(732, 85, 'taipei').setName('taipei')
@@ -432,12 +433,20 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 3,
       repeat: -1
     });
-    this.score = this.add.sprite(1100, 460, 'score')
+    if (window.innerWidth < 1024) {
+      this.score = this.add.sprite(1200, 200, 'score').setScale(0.7)
+    } else {
+      this.score = this.add.sprite(1100, 460, 'score')
+    }
     this.score.anims.play('walk')
     this.mainGroup.add(this.score)
 
     // add tip text
-    this.tipText =  this.add.text(1000, 450, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
+    if (window.innerWidth < 1024) {
+      this.tipText =  this.add.text(1135, 192, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
+    } else {
+      this.tipText =  this.add.text(1000, 450, '點按地圖上11景點\n圖開始尋寶吧！', this._fontStyle)
+    }
     this.tipText.setWordWrapWidth(300)
     this.mainGroup.add(this.tipText)
 
