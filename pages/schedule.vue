@@ -30,7 +30,7 @@
       </div>
     </div>
     <div id="schedule">
-      <div id="title-m"><img src="/images/m/title.png" /></div>
+      <!-- <div id="title-m"><img src="/images/m/title.png" /></div> -->
       <div id="circle-1-1" class="circle-static circle-o">
         喔熊<br/>組長
       </div>
@@ -75,8 +75,8 @@
       <img id="leaf-2" src="/images/m/leaf-2.png" />
       <img id="leaf-2-2" src="/images/m/leaf-2.png" />
       <img id="leaf-3" src="/images/m/leaf-3.png" />
-      <img id="cat" :class="{ active: start }" src="/images/m/cat2.png" />
-      <img id="oh-bear" :class="{ active: start }" src="/images/m/oh-bear.png" />
+      <!-- <img id="cat" :class="{ active: start }" src="/images/m/cat2.png" /> -->
+      <!-- <img id="oh-bear" :class="{ active: start }" src="/images/m/oh-bear.png" /> -->
     </div>
     <Footer />
   </div>
@@ -333,7 +333,8 @@ export default {
       background-size: cover;
 
       @media screen and (max-width: 1023px) {
-        background-image: url('/images/m/train.png');
+        background-image: url('/images/m/train.jpeg');
+        background-position: top;
         width: 100%;
         height: 1129px;
       }
