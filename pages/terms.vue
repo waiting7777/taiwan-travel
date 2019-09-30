@@ -51,7 +51,7 @@ export default {
       }
 
       #terms-content {
-        width: 1280px;
+        width: 1240px;
         margin: 40px auto;
         line-height: 32px;
         font-size: 18px;

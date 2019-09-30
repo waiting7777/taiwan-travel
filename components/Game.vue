@@ -36,7 +36,7 @@
           </a>
         </div>
         <div id="cert-share" v-if="stage == 2">
-          <a href="/">
+          <a href="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=http://taiwanfun.worldjournal.com', 'taiwanfun', config='height=500,width=500');">
             <img src="/images/cert-share.png" />
           </a>
         </div>
