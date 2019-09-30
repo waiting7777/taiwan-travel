@@ -168,7 +168,12 @@ export default class GameScene extends Phaser.Scene {
     this.firstGroup = this.add.group()
 
     // add bg 0
-    this.bg0 = this.add.image(0, 0, 'bg-0').setOrigin(0).setDepth(-1)
+    if (window.innerWidth < 1024) {
+      this.bg0 = this.add.image(0, -30, 'bg-0').setOrigin(0).setDepth(-1)
+    } else {
+      this.bg0 = this.add.image(0, 0, 'bg-0').setOrigin(0).setDepth(-1)
+    }
+    
 
     // add cat
     let catAnim = this.anims.create({
