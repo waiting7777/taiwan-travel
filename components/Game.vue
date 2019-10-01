@@ -150,6 +150,7 @@ export default {
       opacity: 0;
       transition: all 0.7s ease;
       pointer-events: none;
+      z-index: 5;
 
       @media screen and (max-width: 1023px) {
         width: 90%;
