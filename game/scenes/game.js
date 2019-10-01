@@ -66,7 +66,7 @@ export default class GameScene extends Phaser.Scene {
       },
       taichung: {
         title: '台中站',
-        text: ['鎮瀾宮的大甲媽祖送上平安符勳章，讓你生活順心順利！', '行經台中一定要到大甲鎮瀾宮祈福，拜拜讓旅程祈求一切順利。'],
+        text: ['為您送上平安符勳章，讓你生活順心順利！', '行經台中一定要到大甲鎮瀾宮祈福，拜拜讓旅程祈求一切順利。'],
         click: false
       },
       nantou: {
@@ -102,7 +102,7 @@ export default class GameScene extends Phaser.Scene {
       },
       hualien: {
         title: '花蓮站',
-        text: ['恭喜獲台灣特有種「台灣黑熊」，陪你一起在太魯閣國家公園尋寶！', '恭喜獲台灣特有種「台灣獼猴」，陪你一起在太魯閣國家公園尋寶！'],
+        text: ['恭喜獲台灣特有種「台灣黑熊」徽章，陪你一起在太魯閣國家公園尋寶！', '恭喜獲台灣特有種「台灣獼猴」徽章，陪你一起在太魯閣國家公園尋寶！'],
         click: false
       },
       ilan: {
