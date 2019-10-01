@@ -1,5 +1,6 @@
 <template>
-  <section>
+  <section id="sec">
+    <div id="test"></div>
     <div id="game">
       <div id="cert" :class="{ active: certOpen }">
         <div id="cert-title">
@@ -94,6 +95,22 @@ export default {
 </script>
 
 <style lang="scss">
+  #sec {
+    position: relative;
+
+    #test.active {
+      pointer-events: none;
+    }
+
+    #test {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+    }
+  }
   #game {
     display: flex;
     justify-content: center;
