@@ -113,7 +113,12 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 99999;
+      z-index: 2;
+      display: none;
+
+      @media screen and (max-width: 1023px) {
+        display: block;
+      }
     }
   }
   #game {
