@@ -611,6 +611,7 @@ export default class GameScene extends Phaser.Scene {
           window.dispatchEvent(new CustomEvent('cert', { detail: { reward: this.rewardArray }}))
         }, 600)
       }
+      window.dispatchEvent(new CustomEvent('modal', { detail: { open: false }}))
     })
 
     this.cameras.main.once('camerafadeoutcomplete', function(camera) {
@@ -641,6 +642,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   changeModalContent(name) {
+    window.dispatchEvent(new CustomEvent('modal', { detail: { open: true }}))
     this.currentModal = name;
     this.modalHead.innerText = this.modalContent[name].title
     if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {

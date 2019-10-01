@@ -1,6 +1,6 @@
 <template>
   <section id="sec">
-    <div id="test"></div>
+    <div id="test" :class="{ active: modalOpen }"></div>
     <div id="game">
       <div id="cert" :class="{ active: certOpen }">
         <div id="cert-title">
@@ -52,8 +52,12 @@ import Game from '~/game';
 export default {
   mounted () {
     window.game = new Game();
+    window.addEventListener('modal', (event, param) => {
+      this.modalOpen = event.detail.open
+    });
     window.addEventListener('cert', (event, param) => {
       console.log(event, param)
+      console.log(this)
       this.certOpen = true
       if (event.detail && event.detail.reward) {
         this.reward = event.detail.reward
@@ -85,6 +89,7 @@ export default {
     return {
       game: null,
       certOpen: false,
+      modalOpen: false,
       stage: 1,
       name: '',
       submitStatus: null,
