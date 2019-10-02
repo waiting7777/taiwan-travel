@@ -371,7 +371,7 @@ export default {
       font-size: 16px;
 
       @media screen and (max-width: 1023px) {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
