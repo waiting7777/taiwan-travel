@@ -648,12 +648,12 @@ export default class GameScene extends Phaser.Scene {
     if (name === 'taichung' || name === 'ilan' || name === 'tainan' || name === 'hualien' || name === 'pingtung') {
       if (!this.modalContent[name].num) {
         this.modalContent[name].num = _.random(1, 2)
-        this.modalText.innerText = this.modalContent[name].text[this.modalContent[name].num - 1]
         this.rewardArray.push({
           name: name,
           num: this.modalContent[name].num
         })
       }
+      this.modalText.innerText = this.modalContent[name].text[this.modalContent[name].num - 1]
       this.modalImage.src = `/images/${name}-reward-${this.modalContent[name].num}.png`
     } else {
       this.modalImage.src = `/images/${name}.jpg`
