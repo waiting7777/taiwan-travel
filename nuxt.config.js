@@ -8,7 +8,7 @@ export default {
     title: '台灣好好玩│景點尋寶網路活動 參加抽大獎',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
       { property: 'og:url', content: 'http://taiwanfun.worldjournal.com/' },
       { property: 'title', content: '台灣好好玩│景點尋寶網路活動 參加抽大獎' },
       { property: 'og:image', content: 'http://taiwanfun.worldjournal.com/images/fb.jpg' },
